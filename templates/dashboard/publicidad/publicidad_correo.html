@@ -1,0 +1,85 @@
+{% extends 'dashboard/base_dashboard.html' %}
+{% load static %}
+
+{% block main %}
+<div id="main" class="layout-navbar">
+
+    {% include 'dashboard/componentes/header.html' %}
+    <div id="main-content">
+
+        <div class="page-heading">
+            <div class="page-title">
+                <div class="row">
+                    <div class="col-12 col-md-6 order-md-1 order-last">
+                        <h3>Envio de publicidad mediante Correo</h3>
+                        <p class="text-subtitle text-muted">Ingreso de datos dentro del Correo</p>
+                    </div>
+                    <div class="col-12 col-md-6 order-md-2 order-first">
+                        <nav aria-label="breadcrumb" class="breadcrumb-header float-start float-lg-end">
+                            <ol class="breadcrumb">
+                                <li class="breadcrumb-item"><a href="{% url 'publicidad_index' %}">Publicidad</a></li>
+                                <li class="breadcrumb-item active" aria-current="page">Publicidad Correo</li>
+                            </ol>
+                        </nav>
+                    </div>
+                </div>
+            </div>
+
+            <section class="section">
+                <div class="card">
+                    <div class="card-header">
+
+                        <h4>El mensaje será enviado a los correos de todos los clientes</h1>
+                    </div>
+
+                    <div class="card-content">
+                        <div class="card-body">
+                            <form action="#" method="POST">
+                                {% csrf_token %}
+                                <div class="mb-3">
+                                    <label class="form-label">Mensaje</label>
+                                    <textarea name="content" class="form-control"></textarea>
+                                </div>
+                                <script type="text/javascript">
+                                    function showContent() {
+                                        element = document.getElementById("content3");
+                                        check = document.getElementById("check");
+                                        if (check.checked) {
+                                            element.style.display = 'block';
+                                        }
+                                        else {
+                                            element.style.display = 'none';
+                                        }
+
+                                    }
+                                </script>
+                                <div class="mb-3">
+                                    <b>Añadir Catálogo</b>
+                                    <input class="form-check-input" type="checkbox" name="check" id="check" value="1"
+                                        onchange="javascript:showContent()" />
+                                </div>
+                                <div id="content3" style="display: none;" class="mb-3">
+                                    <label class="form-label">Catálogo Drive</label>
+                                    <textarea id="texto" name="content2" class="form-control" rows="1"
+                                        pattern="((https):\/\/)(docs.google.com)?(\/)(document)?"></textarea>
+                                </div>
+                                <div class="d-grid gap-2 d-md-flex justify-content-around">
+                                    <button class="btn btn-success d-flex align-items-center btn-lg" type="submit"
+                                        style="margin: 5px;">
+                                        <i class="bi bi-send-check me-4"></i>Enviar
+                                    </button>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+
+            </section>
+
+        </div>
+
+        {% include 'dashboard/componentes/footer.html' %}
+
+    </div>
+</div>
+{% endblock main %}

@@ -1,0 +1,138 @@
+{% extends 'dashboard/base_dashboard.html' %}
+{% load static %}
+
+{% block main %}
+<div id="main" class="layout-navbar">
+
+    {% include 'dashboard/componentes/header.html' %}
+
+    <div id="main-content">
+
+        <div class="page-heading">
+            <div class="page-title">
+                <div class="row">
+                    <div class="col-12 col-md-6 order-md-1 order-last">
+                        <h3>Servicio de Mantenimientos</h3>
+                        <p class="text-subtitle text-muted">Pagina disponible para la gestión y administración de
+                            Mantenimientos.</p>
+                    </div>
+                    <div class="col-12 col-md-6 order-md-2 order-first">
+                        <nav aria-label="breadcrumb" class="breadcrumb-header float-start float-lg-end">
+                            <ol class="breadcrumb">
+                                <li class="breadcrumb-item"><a href="{% url 'dashboard_index' %}">Dashboard</a></li>
+                                <li class="breadcrumb-item active" aria-current="page">Página de Mantenimiento</li>
+                            </ol>
+                        </nav>
+                    </div>
+                </div>
+            </div>
+
+
+            {% if user.is_staff %}
+
+            <section id="content-types">
+                <div class="row">
+
+                    <div class="col-xl-6 col-md-6 col-sm-12">
+                        <div class="card text-center">
+                            <div class="card-content">
+                                <div class="card-body" style="padding-bottom: 0px ;">
+                                    <h4 class="card-title">Generar Ficha</h4>
+                                    <i class="bi bi-clipboard2-plus me-2"
+                                        style=" font-size: xxx-large; margin: 0%; padding: 0%;"></i>
+                                </div>
+                            </div>
+                            <div class="card-footer" style="padding-top: 3%;">
+                                <a class="btn btn-primary me-1" href="{% url 'mantenimiento_registrar' %}"
+                                    role="button">Acceder</a>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-xl-6 col-md-6 col-sm-12">
+                        <div class="card text-center">
+                            <div class="card-content">
+                                <div class="card-body" style="padding-bottom: 0px ;">
+                                    <h4 class="card-title">Listado de Fichas</h4>
+                                    <i class="bi bi-card-list me-2"
+                                        style=" font-size: xxx-large; margin: 0%; padding: 0%;"></i>
+                                </div>
+                            </div>
+                            <div class="card-footer" style="padding-top: 3%;">
+                                <a class="btn btn-primary me-1" href="{% url 'mantenimiento_listado' %}"
+                                    role="button">Acceder</a>
+                            </div>
+                        </div>
+                    </div>
+                    <!--
+                    <div class="col-xl-4 col-md-6 col-sm-12">
+                        <div class="card text-center">
+                            <div class="card-content">
+                                <div class="card-body" style="padding-bottom: 0px ;">
+                                    <h4 class="card-title">Eliminar Personal</h4>
+                                    <i class="bi bi-person-dash-fill me-2" style=" font-size: xxx-large; margin: 0%; padding: 0%;"></i>
+                                </div>
+                            </div>
+                            <div class="card-footer" style="padding-top: 3%;">
+                                <button type="submit" class="btn btn-primary me-1">Acceder</button>
+                            </div>
+                        </div>
+                    </div>
+                    -->
+                </div>
+            </section>
+
+            {% else %}
+            <!--?-----------------------------------  OPCIONES PARA TECNICOS ----------------------------------------------------->
+            <section id="content-types">
+                <div class="row">
+                    <div class="col-xl-4 col-md-6 col-sm-12">
+                        <div class="card text-center">
+                            <div class="card-content">
+                                <div class="card-body" style="padding-bottom: 0px ;">
+                                    <h4 class="card-title">Asignados</h4>
+                                    <i class="bi bi-file-binary me-2" style=" font-size: xxx-large; margin: 0%; padding: 0%;"></i>
+                                </div>
+                            </div>
+                            <div class="card-footer" style="padding-top: 3%;">
+                                <a class="btn btn-primary me-1" href="{% url 'mantenimiento_asignado' %}" role="button">Acceder</a>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-xl-4 col-md-6 col-sm-12">
+                        <div class="card text-center">
+                            <div class="card-content">
+                                <div class="card-body" style="padding-bottom: 0px ;">
+                                    <h4 class="card-title">En Taller</h4>
+                                    <i class="bi bi-wrench-adjustable-circle me-2" style=" font-size: xxx-large; margin: 0%; padding: 0%;"></i>
+                                </div>
+                            </div>
+                            <div class="card-footer" style="padding-top: 3%;">
+                                <a class="btn btn-primary me-1" href="{% url 'mantenimiento_proceso' %}" role="button">Acceder</a>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-xl-4 col-md-6 col-sm-12">
+                        <div class="card text-center">
+                            <div class="card-content">
+                                <div class="card-body" style="padding-bottom: 0px ;">
+                                    <h4 class="card-title">Finalizados</h4>
+                                    <i class="bi bi-card-checklist me-2" style=" font-size: xxx-large; margin: 0%; padding: 0%;"></i>
+                                </div>
+                            </div>
+                            <div class="card-footer" style="padding-top: 3%;">
+                                <a class="btn btn-primary me-1" href="{% url 'mantenimiento_historial' %}" role="button">Acceder</a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            {% endif %}
+
+        </div>
+
+        {% include 'dashboard/componentes/footer.html' %}
+
+    </div>
+</div>
+{% endblock main %}

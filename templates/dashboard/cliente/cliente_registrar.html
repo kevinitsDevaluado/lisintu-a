@@ -1,0 +1,124 @@
+{% extends 'dashboard/base_dashboard.html' %}
+{% load static %}
+
+{% block main %}
+<div id="main" class="layout-navbar">
+
+    {% include 'dashboard/componentes/header.html' %}
+
+    <div id="main-content">
+
+        <div class="page-heading">
+
+            <div class="page-title">
+                <div class="row">
+                    <div class="col-12 col-md-6 order-md-1 order-last">
+                        <h3>Formulario de Registro de Clientes:</h3>
+                        <h5>Nuevo Cliente</h5>
+                        <p class="text-subtitle text-muted">Formulario con los campos disponibles para el registro de un
+                            nuevo cliente.</p>
+                    </div>
+                    <div class="col-12 col-md-6 order-md-2 order-first">
+                        <nav aria-label="breadcrumb" class="breadcrumb-header float-start float-lg-end">
+                            <ol class="breadcrumb">
+                                <li class="breadcrumb-item"><a href="{% url 'cliente_index' %}">Cliente</a></li>
+                                <li class="breadcrumb-item active" aria-current="page">Registro de Cliente</li>
+                            </ol>
+                        </nav>
+                    </div>
+                </div>
+            </div>
+
+            <section class="section">
+                <div class="card">
+                    <div class="card-header">
+                        <div class="divider m-0">
+                            <i class="bi bi-person-plus-fill" style="font-size: xxx-large;"></i><br>
+                            <div class="divider-text">Datos Personales</div>
+                        </div>
+                    </div>
+                    <div class="card-body">
+                        <form method="post">
+                            {% csrf_token %}
+                            {% if form.errors %}
+                            <p class="text-center" style="color: red;">Tus campos presentan problemas revisalos e intenta nuevamente</p>
+                            {% endif %}
+                            <div class="row">
+                                <div class="col-md-6">
+                                    <div class="form-group mb-4">
+                                        <label class="mb-2" for="disabledInput">Primer Nombre</label>
+                                        {{form.nombre1_cliente}}
+                                    </div>
+                                    <div class="form-group mb-4">
+                                        <label class="mb-2" for="disabledInput">Segundo Nombre</label>
+                                        {{form.nombre2_cliente}}
+                                    </div>
+                                    <div class="form-group mb-4">
+                                        <label class="mb-2" for="disabledInput">Primer Apellido</label>
+                                        {{form.apellido1_cliente}}
+                                    </div>
+                                    <div class="form-group mb-4">
+                                        <label class="mb-2" for="disabledInput">Segundo Apellido</label>
+                                        {{form.apellido2_cliente}}
+                                    </div>
+                                </div>
+                                <div class="col-md-6">
+                                    <div class="form-group mb-4">
+                                        <label class="mb-2" for="disabledInput">Cédula</label>
+                                        {{form.cedula_cliente}}
+                                    </div>
+                                    <div class="form-group mb-4">
+                                        <label class="mb-2" for="disabledInput">Correo Electrónico</label>
+                                        {{form.email_cliente}}
+                                        {% if form.email.errors %}
+                                        {% for error in form.email.errors %}
+                                        <small class="text-danger text-uppercase" id="passwordHelpBlock">
+                                            <strong>{{ error|escape }}</strong>
+                                        </small>
+                                        {% endfor %}
+                                        {% endif %}
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="divider">
+                                <div class="divider-text">Datos de Contacto</div>
+                            </div>
+                            <div class="row">
+                                <div class="col-md-6">
+                                    <div class="form-group mb-4">
+                                        <label class="mb-2" for="disabledInput">Teléfono</label>
+                                        {{form.telefono_cliente}}
+                                    </div>
+                                </div>
+                                <div class="col-md-6">
+                                    <div class="form-group mb-4">
+                                        <label class="mb-2" for="disabledInput">Dirección</label>
+                                        {{form.direccion_cliente}}
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="divider">
+                                <div class="divider-text">Acciones</div>
+                            </div>
+                            <div class="d-grid gap-2 d-md-flex justify-content-around">
+                                <button class="btn btn-success d-flex align-items-center" type="submit"
+                                    style="margin: 5px;">
+                                    <i class="bi bi-save2 me-2"></i>Guardar
+                                </button>
+                                <a class="btn btn-danger d-flex align-items-center" style="margin: 5px;"
+                                    href="{% url 'cliente_index' %}" role="button">
+                                    <i class="bi bi-x-square me-2"></i>Cancelar
+                                </a>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </section>
+
+        </div>
+
+        {% include 'dashboard/componentes/footer.html' %}
+
+    </div>
+</div>
+{% endblock main %}

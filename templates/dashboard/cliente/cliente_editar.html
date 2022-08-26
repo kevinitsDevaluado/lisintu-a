@@ -1,0 +1,174 @@
+{% extends 'dashboard/base_dashboard.html' %}
+{% load static %}
+
+{% block main %}
+<div id="main" class="layout-navbar">
+
+    {% include 'dashboard/componentes/header.html' %}
+
+    <div id="main-content">
+
+        <div class="page-heading">
+
+            <div class="page-title">
+                <div class="row">
+                    <div class="col-12 col-md-6 order-md-1 order-last">
+                        <h3>Información del Cliente a editar:</h3>
+                        <h5>{{cliente.nombre1_cliente}} {{cliente.apellido1_cliente}}</h5>
+                        <p class="text-subtitle text-muted">Detalle con la Información del trabajador a editar.</p>
+                    </div>
+                    <div class="col-12 col-md-6 order-md-2 order-first">
+                        <nav aria-label="breadcrumb" class="breadcrumb-header float-start float-lg-end">
+                            <ol class="breadcrumb">
+                                <li class="breadcrumb-item"><a href="{% url 'detalle_cliente' cliente.id %}">Detalle
+                                        del trabajador</a></li>
+                                <li class="breadcrumb-item active" aria-current="page">{{cliente.nombre1_cliente}} {{cliente.apellido1_cliente}}</li>
+                            </ol>
+                        </nav>
+                    </div>
+                </div>
+            </div>
+            
+            <section class="section">
+                <div class="card">
+                    <div class="card-header">
+                        <div class="divider m-0">
+                            <i class="bi bi-person-bounding-box" style="font-size: xxx-large;"></i><br>
+                            <div class="divider-text">Datos Personales</div>
+                        </div>
+                    </div>
+                    <div class="card-body">
+                        <form method="post">
+                            {% csrf_token %}
+                            {% if form.errors %}
+                            <p style="color: red;">Tus campos presentan los siguientes problemas revisalos e intenta
+                                nuevamente</p>
+                            {% endif %}
+                            <div class="row">
+                                <div class="col-md-6">
+                                    <div class="form-group mb-4">
+                                        <label class="mb-2" for="disabledInput">{{form.nombre1_cliente.label}}</label>
+                                        {{form.nombre1_cliente}}
+                                        {% if form.nombre1_cliente.errors %}
+                                        {% for error in form.nombre1_cliente.errors %}
+                                        <div class="alert alert-danger">
+                                            <strong>{{ error|escape }}</strong>
+                                        </div>
+                                        {% endfor %}
+                                        {% endif %}
+                                    </div>
+                                    <div class="form-group mb-4">
+                                        <label class="mb-2" for="disabledInput">{{form.nombre2_cliente.label}}</label>
+                                        {{form.nombre2_cliente}}
+                                        {% if form.nombre2_cliente.errors %}
+                                        {% for error in form.nombre2_cliente.errors %}
+                                        <div class="alert alert-danger">
+                                            <strong>{{ error|escape }}</strong>
+                                        </div>
+                                        {% endfor %}
+                                        {% endif %}
+                                    </div>
+                                    <div class="form-group mb-4">
+                                        <label class="mb-2" for="disabledInput">{{form.apellido1_cliente.label}}</label>
+                                        {{form.apellido1_cliente}}
+                                        {% if form.apellido1_cliente.errors %}
+                                        {% for error in form.apellido1_cliente.errors %}
+                                        <div class="alert alert-danger">
+                                            <strong>{{ error|escape }}</strong>
+                                        </div>
+                                        {% endfor %}
+                                        {% endif %}
+                                    </div>
+                                    <div class="form-group mb-4">
+                                        <label class="mb-2" for="disabledInput">{{form.apellido2_cliente.label}}</label>
+                                        {{form.apellido2_cliente}}
+                                        {% if form.apellido2_cliente.errors %}
+                                        {% for error in form.apellido2_cliente.errors %}
+                                        <div class="alert alert-danger">
+                                            <strong>{{ error|escape }}</strong>
+                                        </div>
+                                        {% endfor %}
+                                        {% endif %}
+                                    </div>
+                                </div>
+                                <div class="col-md-6">
+                                    <div class="form-group mb-4">
+                                        <label class="mb-2" for="disabledInput">{{form.cedula_cliente.label}}</label>
+                                        {{form.cedula_cliente}}
+                                        {% if form.cedula_cliente.errors %}
+                                        {% for error in form.cedula_cliente.errors %}
+                                        <div class="alert alert-danger">
+                                            <strong>{{ error|escape }}</strong>
+                                        </div>
+                                        {% endfor %}
+                                        {% endif %}
+                                    </div>
+                                    <div class="form-group mb-4">
+                                        <label class="mb-2" for="disabledInput">{{form.telefono_cliente.label}}</label>
+                                        {{form.telefono_cliente}}
+                                        {% if form.telefono_cliente.errors %}
+                                        {% for error in form.telefono_cliente.errors %}
+                                        <div class="alert alert-danger">
+                                            <strong>{{ error|escape }}</strong>
+                                        </div>
+                                        {% endfor %}
+                                        {% endif %}
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="divider">
+                                <div class="divider-text">Datos de Contacto</div>
+                            </div>
+                            <div class="row">
+                                <div class="col-md-6">
+                                    <div class="form-group mb-4">
+                                        <label class="mb-2" for="disabledInput">{{form.email_cliente.label}}</label>
+                                        {{form.email_cliente}}
+                                        {% if form.email_cliente.errors %}
+                                        {% for error in form.email_cliente.errors %}
+                                        <div class="alert alert-danger">
+                                            <strong>{{ error|escape }}</strong>
+                                        </div>
+                                        {% endfor %}
+                                        {% endif %}
+                                    </div>
+                                </div>
+                                <div class="col-md-6">
+                                    <div class="form-group mb-4">
+                                        <label class="mb-2" for="disabledInput">{{form.direccion_cliente.label}}</label>
+                                        {{form.direccion_cliente}}
+                                        {% if form.direccion_cliente.errors %}
+                                        {% for error in form.direccion_cliente.errors %}
+                                        <div class="alert alert-danger">
+                                            <strong>{{ error|escape }}</strong>
+                                        </div>
+                                        {% endfor %}
+                                        {% endif %}
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="divider">
+                                <div class="divider-text">Acciones</div>
+                            </div>
+                            <div class="d-grid gap-2 d-md-flex justify-content-around">
+                                <button class="btn btn-success d-flex align-items-center" type="submit"
+                                    style="margin: 5px;">
+                                    <i class="bi bi-save2 me-2"></i>Guardar
+                                </button>
+                                <a class="btn btn-danger d-flex align-items-center" style="margin: 5px;" href="{% url 'detalle_cliente' cliente.id %}"
+                                    role="button">
+                                    <i class="bi bi-x-square me-2"></i>Cancelar
+                                </a>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </section>
+
+        </div>
+
+        {% include 'dashboard/componentes/footer.html' %}
+
+    </div>
+</div>
+{% endblock main %}

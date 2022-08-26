@@ -1,0 +1,187 @@
+<head>
+    <style>
+        @page {
+            size: a4 portrait;
+            
+            @frame header_frame {
+                /* Static Frame */
+                -pdf-frame-content: header_content;
+                left: 50pt;
+                width: 500pt;
+                top: 20pt;
+                height: 40pt;
+                bottom: 0pt;
+            }
+
+            @frame content_frame {
+                /* Content Frame */
+                left: 50pt;
+                width: 512pt;
+                top: 70pt;
+                height: 632pt;
+            }
+
+            @frame footer_frame {
+                /* Another static Frame */
+                -pdf-frame-content: footer_content;
+                left: 50pt;
+                width: 200pt;
+                top: 800pt;
+                height: 20pt;
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <!-- Content for Static Frame 'header_frame' -->
+    <div id="header_content">
+        <center>
+            <table>
+                <td>
+                    <img id="imagen" src="https://sistema-cps.herokuapp.com/static/otros/img/logo_empresa_1.png"
+                    height="20%">
+                </td>
+            </table>
+        </center>
+    </div>
+
+    <!-- Content for Static Frame 'footer_frame' -->
+    <div id="footer_content">(c) - page <pdf:pagenumber>
+            of <pdf:pagecount>
+    </div>
+
+    <!-- HTML Content -->
+    <h1 style="text-align: center;">Corporación Pioneer Systems/ Latacunga-Ecuador</h1>
+    <h2 style="text-align: center;">Ficha de Mantenimiento</h2>
+    <br>
+    <table>
+        <td><strong>Fecha del Documento: </strong>{{fecha}}</td>
+        <td><strong>Código de Ficha: </strong>{{ficha.codigo_man}}</td>
+        <tr>
+            <td><strong>Fecha Ingreso del Equipo: </strong> {{ficha.fecha_ingreso_man}}</td>
+            <td><strong>Número de Ficha: </strong> 0000-{{ficha.id}}</td>
+        </tr>
+    </table>
+    <hr>
+    
+    
+    {% if user.is_staff %}
+    <h3 style="margin-bottom:5px ;">Datos de Información Cliente</h3>
+    <table>
+        <tr>
+            <td><strong>Nombre Cliente : </strong>{{ficha.cliente.nombre1_cliente}} {{ficha.cliente.nombre2_cliente}} {{ficha.cliente.apellido1_cliente}} {{ficha.cliente.apellido2_cliente}}</td>
+            
+        </tr>
+        <tr>
+            <td><strong>Número de identificación :</strong> {{ficha.cliente.cedula_cliente}}</td>
+            <td><strong>Teléfono : </strong> {{ficha.cliente.telefono_cliente}}</td>
+        </tr>
+        <tr>
+            <td><strong>Dirección :</strong> {{ficha.cliente.direccion_cliente}}</td>
+            <td><strong>Correo electrónico :</strong> {{ficha.cliente.email_cliente}}</td> 
+        </tr>
+    </table>
+    {% else %}
+    <h3 style="margin-bottom:5px ;">Datos de Información Cliente - Técnico</h3>
+    <table>
+        <tr>
+            <td><strong>Cliente : </strong>{{ficha.cliente.nombre1_cliente}} {{ficha.cliente.nombre2_cliente}} {{ficha.cliente.apellido1_cliente}} {{ficha.cliente.apellido2_cliente}}</td>
+            <td><strong>Técnico Asignado : </strong>{{ficha.usuario}}</td>
+        </tr>
+    </table>
+    {% endif %}
+    
+    
+    <hr>
+    <h3>DETALLE DEL MANTENIMIENTO</h3>
+    {% if user.is_staff %}
+    <table>
+        <tr>
+            <td><strong>Técnico Asignado : </strong>{{ficha.usuario}}</td>
+        </tr>
+    </table><br>{% endif %}
+    <table>
+        <tr>
+            <td>
+                <li><strong>Tipo de Mantenimiento : </strong> {{ficha.tipo_man}}</li>
+            </td>
+            <td>
+                <li><strong>Estado del Mantenimiento : </strong> {{ficha.estado_man}}</li>
+            </td>
+            <td>
+                <li><strong>Costo del Mantenimiento : </strong> {{ficha.costo_man}} $</li>
+            </td>
+        </tr>
+        
+    </table>
+    <hr>
+    <h3>DETALLE DEL EQUIPO</h3>
+    <table>
+        <tr>
+            <td>
+                <li><strong>Tipo de Equipo : </strong> {{ficha.tipo_equipo_man}}</li>
+            </td>
+            <td>
+                <li><strong>Marca del Equipo : </strong> {{ficha.marca_equipo_man}}</li>
+            </td>
+            <td>
+                <li><strong>Modelo del Equipo : </strong> {{ficha.modelo_equipo_man}}</li>
+            </td>
+        </tr>
+    </table>
+    <br>
+    <li><strong>Accesorios del Equipo : </strong><br> </li>
+    <textarea id="w3review" name="w3review" rows="4" cols="30">
+        {{ficha.accesorios_equipo_man}}
+    </textarea>
+    <br>
+    <li><strong>Problemas del Equipo : </strong><br> </li>
+    <textarea id="w3review" name="w3review" rows="4" cols="30">
+        {{ficha.falla_equipo_man}}
+    </textarea>
+    <hr>
+    
+    {% if ficha.estado_man == 'Finalizado' %}
+    <h3>Observaciones del Técnico</h3>
+    
+    <li><strong>Procedimiento del Técnico : </strong><br></li>
+    <textarea id="w3review" name="w3review" rows="4" cols="30">
+        {{ficha.procedimiento_man}}
+    </textarea>
+    <br>
+    <li><strong>Otras Observaciones : </strong><br></li>
+    <textarea id="w3review" name="w3review" rows="4" cols="30">
+        {{ficha.observaciones_man}}
+    </textarea>
+    <hr>
+    
+    <h3>FIRMAS DE RESPONSABILIDAD:</h3>
+    <li><strong>Fecha de Entrega : </strong>{{ficha.fecha_entrega_man}}</li>
+    <br><br><br>
+    <table style="text-align: center;">
+        <tr>
+            <td><strong>________________________________</strong></td>
+            <td><strong>________________________________</strong></td>
+        </tr>
+        <tr>
+            <td>Firma del Cliente</td>
+            <td>Firma del Resposable de Entrega</td>
+        </tr>
+        <tr>
+            <td>{{ficha.cliente.nombre1_cliente}} {{ficha.cliente.nombre2_cliente}} {{ficha.cliente.apellido1_cliente}} {{ficha.cliente.apellido2_cliente}}</td>
+            <td>{{user.first_name}} {{user.last_name}}</td>
+        </tr>
+        <tr>
+            <td>CI / ruc: {{ficha.cliente.cedula_cliente}}</td>
+            <td>{{user.perfil.cargo_perfil}}</td>
+        </tr>
+    </table>
+    {% endif %}
+    <br><br>
+    <p><strong>Nota:</strong>
+    SI EL EQUIPO NO ES RETIRADO EN EL LAPSO DE 30 DIAS CORPORACIÓN PIONEER NO SE HACE RESPONSABLE. ATTE: LA GERENCIA
+    </p>
+</body>
+
+</html>

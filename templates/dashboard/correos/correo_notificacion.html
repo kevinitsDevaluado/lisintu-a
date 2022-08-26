@@ -1,0 +1,695 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="es" xmlns="http://www.w3.org/1999/xhtml" xmlns:v="urn:schemas-microsoft-com:vml"
+    xmlns:o="urn:schemas-microsoft-com:office:office">
+
+<head>
+    <meta charset="utf-8"> <!-- utf-8 works for most cases -->
+    <meta name="viewport" content="width=device-width"> <!-- Forcing initial-scale shouldn't be necessary -->
+    <meta http-equiv="X-UA-Compatible" content="IE=edge"> <!-- Use the latest (edge) version of IE rendering engine -->
+    <meta name="x-apple-disable-message-reformatting"> <!-- Disable auto-scale in iOS 10 Mail entirely -->
+    <title></title> <!-- The title tag shows in email notifications, like Android 4.4. -->
+
+    <link href="https://fonts.googleapis.com/css?family=Poppins:200,300,400,500,600,700" rel="stylesheet">
+    <!-- Bootstrap CSS 
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.0.0/dist/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+        -->
+    <!-- CSS Reset : BEGIN -->
+    <style>
+        /* What it does: Remove spaces around the email design added by some email clients. */
+        /* Beware: It can remove the padding / margin and add a background color to the compose a reply window. */
+        html,
+        body {
+            margin: 0 auto !important;
+            padding: 0 !important;
+            height: 98% !important;
+            width: 100% !important;
+            background: #f1f1f1;
+        }
+
+        /* What it does: Stops email clients resizing small text. */
+        * {
+            -ms-text-size-adjust: 100%;
+            -webkit-text-size-adjust: 100%;
+        }
+
+        /* What it does: Centers email on Android 4.4 */
+        div[style*="margin: 16px 0"] {
+            margin: 0 !important;
+        }
+
+        /* What it does: Stops Outlook from adding extra spacing to tables. 
+        table,
+        td {
+            mso-table-lspace: 0pt !important;
+            mso-table-rspace: 0pt !important;
+        }*/
+
+        /* What it does: Fixes webkit padding issue. 
+        table {
+            border-spacing: 0 !important;
+            border-collapse: collapse !important;
+            table-layout: fixed !important;
+            margin: 0 auto !important;
+        }*/
+
+        /* What it does: Uses a better rendering method when resizing images in IE. */
+        img {
+            -ms-interpolation-mode: bicubic;
+        }
+
+        /* What it does: Prevents Windows 10 Mail from underlining links despite inline CSS. Styles for underlined links should be inline. */
+        a {
+            text-decoration: none;
+        }
+
+        /* What it does: A work-around for email clients meddling in triggered links. */
+        *[x-apple-data-detectors],
+        /* iOS */
+        .unstyle-auto-detected-links *,
+        .aBn {
+            border-bottom: 0 !important;
+            cursor: default !important;
+            color: inherit !important;
+            text-decoration: none !important;
+            font-size: inherit !important;
+            font-family: inherit !important;
+            font-weight: inherit !important;
+            line-height: inherit !important;
+        }
+
+        /* What it does: Prevents Gmail from displaying a download button on large, non-linked images. */
+        .a6S {
+            display: none !important;
+            opacity: 0.01 !important;
+        }
+
+        /* What it does: Prevents Gmail from changing the text color in conversation threads. */
+        .im {
+            color: inherit !important;
+        }
+
+        /* If the above doesn't work, add a .g-img class to any image in question. */
+        img.g-img+div {
+            display: none !important;
+        }
+
+        /* What it does: Removes right gutter in Gmail iOS app: https://github.com/TedGoas/Cerberus/issues/89  */
+        /* Create one of these media queries for each additional viewport size you'd like to fix */
+
+        /* iPhone 4, 4S, 5, 5S, 5C, and 5SE */
+        @media only screen and (min-device-width: 320px) and (max-device-width: 374px) {
+            u~div .email-container {
+                min-width: 320px !important;
+            }
+        }
+
+        /* iPhone 6, 6S, 7, 8, and X */
+        @media only screen and (min-device-width: 375px) and (max-device-width: 413px) {
+            u~div .email-container {
+                min-width: 375px !important;
+            }
+        }
+
+        /* iPhone 6+, 7+, and 8+ */
+        @media only screen and (min-device-width: 414px) {
+            u~div .email-container {
+                min-width: 414px !important;
+            }
+        }
+    </style>
+
+    <!-- CSS Reset : END -->
+
+    <!-- Progressive Enhancements : BEGIN -->
+    <style>
+        .primary {
+            background: #17bebb;
+
+        }
+
+        .bg_white {
+            background: #ffffff;
+        }
+
+        .bg_light {
+            background: #f7fafa;
+        }
+
+        .bg_black {
+            background: #000000;
+        }
+
+        .bg_dark {
+            background: rgba(0, 0, 0, .8);
+        }
+
+        .email-section {
+            padding: 2.5em;
+        }
+
+        /*BUTTON*/
+        .btn {
+            padding: 10px 15px;
+            display: inline-block;
+        }
+
+        .btn.btn-primary {
+            border-radius: 5px;
+            background: #17bebb;
+            color: #ffffff;
+        }
+
+        .btn.btn-white {
+            border-radius: 5px;
+            background: #ffffff;
+            color: #000000;
+        }
+
+        .btn.btn-white-outline {
+            border-radius: 5px;
+            background: transparent;
+            border: 1px solid #fff;
+            color: #fff;
+        }
+
+        .btn.btn-black-outline {
+            border-radius: 0px;
+            background: transparent;
+            border: 2px solid #000;
+            color: #000;
+            font-weight: 700;
+        }
+
+        .btn-custom {
+            color: rgba(0, 0, 0, .3);
+            text-decoration: underline;
+        }
+
+        h1,
+        h2,
+        h3,
+        h4,
+        h5,
+        h6 {
+            font-family: 'Poppins', sans-serif;
+            color: #000000;
+            margin-top: 0;
+            font-weight: 400;
+        }
+
+        body {
+            font-family: 'Poppins', sans-serif;
+            font-weight: 400;
+            font-size: 12px;
+            /*15*/
+            line-height: 1.8;
+            color: rgba(0, 0, 0, .4);
+        }
+
+        a {
+            /*color: #17bebb;*/
+            color: #5b991a;
+            line-height: 1;
+        }
+
+        table {}
+
+        /*LOGO*/
+
+        .logo h1 {
+            margin: 0;
+        }
+
+        .logo h1 a {
+            /*color: #17bebb;*/
+            color: #5b991a;
+            font-size: 24px;
+            font-weight: 700;
+            font-family: 'Poppins', sans-serif;
+        }
+
+        /*HERO*/
+        .hero {
+            position: relative;
+            z-index: 0;
+        }
+
+        .hero .text {
+            color: rgba(0, 0, 0, .3);
+        }
+
+        .hero .text h2 {
+            color: #000;
+            font-size: 34px;
+            margin-bottom: 0;
+            font-weight: 200;
+            line-height: 1.4;
+        }
+
+        .hero .text h3 {
+            font-size: 24px;
+            font-weight: 300;
+        }
+
+        .hero .text h2 span {
+            font-weight: 600;
+            color: #000;
+        }
+
+        .text-author {
+            bordeR: 1px solid rgba(0, 0, 0, .05);
+            max-width: 50%;
+            margin: 0 auto;
+            padding: 2em;
+        }
+
+        .text-author img {
+            border-radius: 50%;
+            padding-bottom: 20px;
+        }
+
+        .text-author h3 {
+            margin-bottom: 0;
+        }
+
+        ul.social {
+            padding: 0;
+        }
+
+        ul.social li {
+            display: inline-block;
+            margin-right: 10px;
+        }
+
+        /*FOOTER*/
+
+        .footer {
+            border-top: 1px solid rgba(0, 0, 0, .05);
+            color: rgba(0, 0, 0, .5);
+        }
+
+        .footer .heading {
+            color: #000;
+            font-size: 15px;
+        }
+
+        .footer ul {
+            margin: 0;
+            padding: 0;
+        }
+
+        .footer ul li {
+            list-style: none;
+            margin-bottom: 10px;
+        }
+
+        .footer ul li a {
+            color: rgba(0, 0, 0, 1);
+        }
+
+
+        @media screen and (max-width: 500px) {}
+    </style>
+
+
+</head>
+
+<body width="100%" style="margin: 0; padding: 0 !important; mso-line-height-rule: exactly; background-color: #f1f1f1;">
+    <center style="width: 100%; background-color: #f1f1f1;">
+        <div
+            style="display: none; font-size: 1px;max-height: 0px; max-width: 0px; opacity: 0; overflow: hidden; mso-hide: all; font-family: sans-serif;">
+            &zwnj;&nbsp;&zwnj;&nbsp;&zwnj;&nbsp;&zwnj;&nbsp;&zwnj;&nbsp;&zwnj;&nbsp;&zwnj;&nbsp;&zwnj;&nbsp;&zwnj;&nbsp;&zwnj;&nbsp;&zwnj;&nbsp;&zwnj;&nbsp;&zwnj;&nbsp;&zwnj;&nbsp;&zwnj;&nbsp;&zwnj;&nbsp;&zwnj;&nbsp;&zwnj;&nbsp;
+        </div>
+        <div style="max-width: 600px; margin: 20px auto;" class="email-container">
+            <!-- BEGIN BODY -->
+            <table align="center" role="presentation" cellspacing="0" cellpadding="0" border="0" width="100%"
+                style="margin: auto;">
+                <tr>
+                    <td valign="top" class="bg_white" style="padding: 1em 1.5em 0 2.5em;">
+                        <table role="presentation" border="0" cellpadding="0" cellspacing="0" width="100%">
+                            <tr>
+                                <td style="text-align: center;">
+
+                                    <!-- <div class="text-center"style="background-image: url('{% static 'img/tricolor.png' %}'); padding: 4px; background-size: 100% 100%; background-repeat: no-repeat;"></div> -->
+                                    <!-- <img src="/static/img/LogoMTOP2017.png" alt="logo_MTOP"> -->
+                                    <img src="https://sistema-cps.herokuapp.com/static/otros/img/logo_empresa_1.png"
+                                        alt="Logo_CPS" width="15%">
+                                    <h2 style="margin: 0%; color: black; font-weight: bolder; margin-top: 15px;">
+                                        CORPORACIÓN PIONEER SYSTEMS</h1>
+                                        <hr style="height: 2px; color: black; background-color: black;">
+                                        <!--
+                                        <section id="contact" class="" style="padding: 5px; background: rgba(0, 1, 63, 0.505); ">
+                                            -->
+                                        <!-- ojo esta es la linea azul -->
+                                        </section>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td class="logo" style="text-align: center; color: #5b9919; ">
+
+                                    {% if ficha_datos.estado_man == 'En Proceso' %}
+                                    <h3 style="font-weight: bolder; margin-top:10px; margin-bottom: 10px;">
+                                        Notificación de Ingreso del Equipo a Soporte Técnico.</h3>
+                                    {% elif ficha_datos.estado_man == 'Entregado' %}
+                                    <h3 style="font-weight: bolder; margin-top:10px; margin-bottom: 10px;">
+                                        Notificación de Entrega del Equipo.</h3>
+                                    {% else %}
+                                    <h3 style="font-weight: bolder; margin-top:10px; margin-bottom: 10px;">
+                                        Notificación de Estado del Soporte Técnico del Equipo.</h3>
+                                    {% endif %}
+
+                                </td>
+                            </tr>
+                        </table>
+                    </td>
+                </tr><!-- end tr -->
+                <tr>
+                    <td valign="middle" class="hero bg_white" style="padding: 1.5px 0 4em 0;">
+                        <table role="presentation" border="0" cellpadding="0" cellspacing="0" width="100%">
+                            <tr>
+                                <td style="padding: 0 2.5em; text-align: center; padding-bottom: 2em; font-size: 15px;">
+                                    <div class="text">
+                                        <h4 style="margin-bottom: 5px;">Un gusto saludarle,
+                                            <strong>{{ficha_datos.cliente.nombre1_cliente}}
+                                                {{ficha_datos.cliente.apellido1_cliente}}</strong>,
+                                            este correo es para informarle los detalles de la ficha del Soporte Técnico
+                                        </h4>
+                                        <hr style="height: 2px; color: black; background-color: black;">
+                                        <p style="text-align: center; margin: 0px; color: #000000; font-size: larger;
+                                        font-weight: bold;">Datos Principales de la ficha<br> </p>
+
+                                        <table>
+                                            <tr>
+                                                <td valign="top" width="33.333%" style="padding-top: 0px;">
+                                                    <table role="presentation" cellspacing="0" cellpadding="0"
+                                                        border="0" width="100%">
+                                                        <tr>
+                                                            <td style="text-align: left; padding-right: 10px;">
+                                                                <p style="margin: 0; color: black; font-size: 12px;">
+                                                                    <strong> Codigo de Ficha : </strong></p>
+                                                                <p style="margin: 0; color: black; font-size: 12px;">
+                                                                    <strong> Numero de Ficha : </strong></p>
+                                                                <p style="margin: 0; color: black; font-size: 12px;">
+                                                                    <strong> Datos Cliente : </strong></p>
+                                                                <p style="margin: 0; color: black; font-size: 12px;">
+                                                                    <strong> Tecnico Encargado : </strong></p>
+                                                                <p style="margin: 0; color: black; font-size: 12px;">
+                                                                    <strong> Costo del Mantenimiento : </strong></p>
+                                                            </td>
+                                                        </tr>
+                                                    </table>
+                                                </td>
+                                                <td valign="top" width="33.333%" style="padding-top: 0px;">
+                                                    <table role="presentation" cellspacing="0" cellpadding="0"
+                                                        border="0" width="100%">
+                                                        <tr>
+                                                            <td
+                                                                style="text-align: left; padding-left: 5px; padding-right: 5px;">
+                                                                <p style="margin: 0; color: black; font-size: 12px;">
+                                                                    <span>{{ficha_datos.codigo_man}}</span></p>
+                                                                <p style="margin: 0; color: black; font-size: 12px;">
+                                                                    <span>0000-{{ficha_datos.id}}</span></p>
+                                                                <p style="margin: 0; color: black; font-size: 12px;">
+                                                                    <span>{{ficha_datos.cliente.nombre1_cliente}}
+                                                                        {{ficha_datos.cliente.nombre2_cliente}}
+                                                                        {{ficha_datos.cliente.apellido1_cliente}}
+                                                                        {{ficha_datos.cliente.apellido2_cliente}}</span>
+                                                                </p>
+                                                                <p style="margin: 0; color: black; font-size: 12px;">
+                                                                    {{ficha_datos.usuario}}</p>
+                                                                <p style="margin: 0; color: black; font-size: 12px;">
+                                                                    <span>$ {{ficha_datos.costo_man}}</span></p>
+
+                                                            </td>
+                                                        </tr>
+                                                    </table>
+                                                </td>
+                                            </tr>
+                                        </table>
+                                        <!--
+                                        <div class="container" style="display: flex;">
+                                            <div
+                                                style="display: flex; flex-direction: column; text-align: left; margin: 0px; color: black; font-size: 12px; width: 35%;">
+                                                <strong> Codigo de Ficha : </strong>
+                                                <strong> Numero de Ficha : </strong>
+                                                <strong> Datos Cliente : </strong>
+                                                <strong> Tecnico Encargado : </strong>
+                                                <strong> Costo del Mantenimiento : </strong>
+                                            </div>
+                                            <div
+                                                style="display: flex; flex-direction: column; text-align: left; margin: 0px; color: black; font-size: 12px; width: 50%;">
+                                                <span>{{ficha_datos.codigo_man}}</span>
+                                                <span>0000-{{ficha_datos.id}}</span>
+                                                <span>{{ficha_datos.cliente.nombre1_cliente}}
+                                                    {{ficha_datos.cliente.nombre2_cliente}}
+                                                    {{ficha_datos.cliente.apellido1_cliente}}
+                                                    {{ficha_datos.cliente.apellido2_cliente}}</span>
+                                                <span>{{ficha_datos.usuario}}</span>
+                                                <span>$ {{ficha_datos.costo_man}}</span>
+                                            </div>
+                                        </div>
+                                        -->
+
+                                        <hr
+                                            style="height: 2px; color: black; background-color: black; margin: 0%; padding: 0%;">
+                                        <p style="text-align: center; margin: 0px; color: #000000; font-size: medium;
+                                        font-weight: bold;">Detalle Ficha.<br> </p>
+                                        <hr
+                                            style="height: 2px; color: black; background-color: black; margin: 0%; padding: 0%; margin-bottom: 5px;">
+
+                                        <table>
+                                            <tr>
+                                                <td valign="top" width="33.333%" style="padding-top: 0px;">
+                                                    <table role="presentation" cellspacing="0" cellpadding="0"
+                                                        border="0" width="100%">
+                                                        <tr>
+                                                            <td style="text-align: left; padding-right: 10px;">
+                                                                <p style="margin: 0; color: black; font-size: 12px;">
+                                                                    <strong> Fecha de Ingreso : </strong></p>
+                                                                <p style="margin: 0; color: black; font-size: 12px;">
+                                                                    <strong> Fecha de Entrega : </strong></p>
+                                                                <p style="margin: 0; color: black; font-size: 12px;">
+                                                                    <strong> Tipo de mantenimiento : </strong></p>
+                                                                <p style="margin: 0; color: black; font-size: 12px;">
+                                                                    <strong> Estado del mantenimiento : </strong></p>
+                                                            </td>
+                                                        </tr>
+                                                    </table>
+                                                </td>
+                                                <td valign="top" width="33.333%" style="padding-top: 0px;">
+                                                    <table role="presentation" cellspacing="0" cellpadding="0"
+                                                        border="0" width="100%">
+                                                        <tr>
+                                                            <td
+                                                                style="text-align: left; padding-left: 5px; padding-right: 5px;">
+                                                                <p style="margin: 0; color: black; font-size: 12px;">
+                                                                    <span>{{ficha_datos.fecha_ingreso_man}}</span></p>
+                                                                <p style="margin: 0; color: black; font-size: 12px;">
+                                                                    <span>{{ficha_datos.fecha_entrega_man}}</span></p>
+                                                                <p style="margin: 0; color: black; font-size: 12px;">
+                                                                    <span>{{ficha_datos.tipo_man}}</span></p>
+                                                                <p style="margin: 0; color: black; font-size: 12px;">
+                                                                    <span>{{ficha_datos.estado_man}}</span></p>
+
+                                                            </td>
+                                                        </tr>
+                                                    </table>
+                                                </td>
+                                            </tr>
+                                        </table>
+                                        <!--
+                                        <div class="ccontainer" style="display: flex;">
+                                            <div
+                                                style="display: flex; flex-direction: column; text-align: left; margin: 0px; color: black; font-size: 12px; width: 40%;">
+                                                <strong> Fecha de Ingreso : </strong>
+                                                <strong> Fecha de Entrega : </strong>
+                                                <strong> Tipo de mantenimiento : </strong>
+                                                <strong> Estado del mantenimiento : </strong>
+                                            </div>
+                                            <div
+                                                style="display: flex; flex-direction: column; text-align: left; margin: 0px; color: black; font-size: 12px; width: 50%;">
+                                                <span>{{ficha_datos.fecha_ingreso_man}}</span>
+                                                <span>{{ficha_datos.fecha_entrega_man}}</span>
+                                                <span>{{ficha_datos.tipo_man}}</span>
+                                                <span>{{ficha_datos.estado_man}}</span>
+                                            </div>
+                                        </div>
+                                        -->
+                                        <hr>
+                                        <p style="text-align: left; margin: 0px; color: #000000; font-size: small;
+                                        font-weight: bold;">Datos del Equipo:<br> </p>
+
+                                        <table>
+                                            <tr>
+                                                <td valign="top" width="33.333%" style="padding-top: 0px;">
+                                                    <table role="presentation" cellspacing="0" cellpadding="0"
+                                                        border="0" width="100%">
+                                                        <tr>
+                                                            <td style="text-align: left; padding-right: 10px;">
+                                                                <p style="margin: 0; color: black; font-size: 12px;">
+                                                                    <strong> Tipo de Equipo : </strong></p>
+                                                                <p style="margin: 0; color: black; font-size: 12px;">
+                                                                    <strong> Marca del Equipo : </strong></p>
+                                                                <p style="margin: 0; color: black; font-size: 12px;">
+                                                                    <strong> Modelo de Equipo : </strong></p>
+                                                                <p style="margin: 0; color: black; font-size: 12px;">
+                                                                    <strong> Accesorios : </strong></p>
+                                                            </td>
+                                                        </tr>
+                                                    </table>
+                                                </td>
+                                                <td valign="top" width="33.333%" style="padding-top: 0px;">
+                                                    <table role="presentation" cellspacing="0" cellpadding="0"
+                                                        border="0" width="100%">
+                                                        <tr>
+                                                            <td
+                                                                style="text-align: left; padding-left: 5px; padding-right: 5px;">
+                                                                <p style="margin: 0; color: black; font-size: 12px;">
+                                                                    <span>{{ficha_datos.tipo_equipo_man}}</span></p>
+                                                                <p style="margin: 0; color: black; font-size: 12px;">
+                                                                    <span>{{ficha_datos.marca_equipo_man}}</span></p>
+                                                                <p style="margin: 0; color: black; font-size: 12px;">
+                                                                    <span>{{ficha_datos.modelo_equipo_man}}</span></p>
+                                                                <p style="margin: 0; color: black; font-size: 12px;">
+                                                                    <span>{{ficha_datos.accesorios_equipo_man}}</span></p>
+
+                                                            </td>
+                                                        </tr>
+                                                    </table>
+                                                </td>
+                                            </tr>
+                                        </table>
+                                        <!--
+                                        <div class="ccontainer" style="display: flex;">
+                                            <div
+                                                style="display: flex; flex-direction: column; text-align: left; margin: 0px; color: black; font-size: 12px; width: 40%;">
+                                                <strong> Tipo de Equipo : </strong>
+                                                <strong> Marca del Equipo : </strong>
+                                                <strong> Modelo de Equipo : </strong>
+                                                <strong> Accesorios : </strong>
+                                            </div>
+                                            <div
+                                                style="display: flex; flex-direction: column; text-align: left; margin: 0px; color: black; font-size: 12px; width: 50%;">
+                                                <span>{{ficha_datos.tipo_equipo_man}}</span>
+                                                <span>{{ficha_datos.marca_equipo_man}}</span>
+                                                <span>{{ficha_datos.modelo_equipo_man}}</span>
+                                                <span>{{ficha_datos.accesorios_equipo_man}}</span>
+                                            </div>
+                                        </div>-->
+
+                                        <hr>
+                                        <p style="text-align: left; margin: 0px; color: #000000; font-size: small;
+                                        font-weight: bold;">Falla del Equipo:<br> </p>
+                                        <h6 style="margin-bottom: 5px; text-align: justify;">
+                                            {{ficha_datos.falla_equipo_man}}
+                                        </h6>
+                                        <hr>
+                                        <p style="text-align: left; margin: 0px; color: #000000; font-size: small;
+                                        font-weight: bold;">Solucion del fallo :<br> </p>
+                                        <h6 style="margin-bottom: 5px; text-align: justify;">
+                                            {{ficha_datos.procedimiento_man}}
+                                        </h6>
+                                        <hr>
+                                        <p style="text-align: left; margin: 0px; color: #000000; font-size: small;
+                                        font-weight: bold;">Observaciones del Tecnico :<br> </p>
+                                        <h6 style="margin-bottom: 5px; text-align: justify;">
+                                            {{ficha_datos.observaciones_man}}
+                                        </h6>
+                                    </div>
+                                </td>
+                            </tr>
+                            <tr>
+                                <!--
+                                <td style="text-align: center;">
+                                    <div class="text-author">
+                                        
+                                        <img id="publi" class="img-thumbnail rounded mx-auto d-blockl"
+                                            src="/media/{{i.photo}}" alt="Responsive image">
+                                            
+                                        <img src="{% static 'OTROS/assets/img/au.png' %}" alt=""
+                                            style="width: 100px; max-width: 600px; height: auto; margin: auto; display: block;">
+                                        <h3 class="name">{{datosparticipante.apellido_pat}} {{datosparticipante.nombre1}}</h3>
+                                        <span class="position">CEO, Founder at e-Verify</span>
+                                        <p><a href="#" class="btn btn-primary">Accept Request</a></p>
+                                        <p><a href="#" class="btn-custom">Ignore Request</a></p> -->
+        </div>
+        </td>
+        </tr>
+        </table>
+        <p style="text-align:center; font-size: small;"><strong>Nota:</strong>
+            SI EL EQUIPO NO ES RETIRADO EN EL LAPSO DE 30 DIAS CORPORACIÓN PIONEER NO SE HACE RESPONSABLE. ATTE: LA
+            GERENCIA
+        </p>
+        </td>
+        </tr><!-- end tr -->
+        <!-- 1 Column Text + Button : END -->
+        </table>
+        <table align="center" role="presentation" cellspacing="0" cellpadding="0" border="0" width="100%"
+            style="margin: auto; font: size 10px;">
+            <tr>
+                <td valign="middle" class="bg_light footer email-section"
+                    style="padding: 15px; padding-bottom: 0%; padding-top: 0%;">
+                    <table>
+                        <tr>
+                            <td valign="top" width="33.333%" style="padding-top: 0px;">
+                                <table role="presentation" cellspacing="0" cellpadding="0" border="0" width="100%">
+                                    <tr>
+                                        <td style="text-align: left; padding-right: 10px;">
+                                            <h3 class="heading" style="text-align:center; margin-bottom:2px;">Conocenos:
+                                            </h3>
+                                            <p style="margin-top: 0%; margin-bottom: 0%;">CORPORACIÓN PIONEER UNA
+                                                EMPRESA AL SERVICIO DE LA COMUNIDAD
+                                            </p>
+                                        </td>
+                                    </tr>
+                                </table>
+                            </td>
+                            <td valign="top" width="33.333%" style="padding-top: 0px;">
+                                <table role="presentation" cellspacing="0" cellpadding="0" border="0" width="100%">
+                                    <tr>
+                                        <td style="text-align: left; padding-left: 5px; padding-right: 5px;">
+                                            <h3 class="heading" style="text-align:center; margin-bottom:2px;">
+                                                Contactenos:</h3>
+                                            <ul style="margin-top: 0%;  margin-bottom: 0%;">
+                                                <li><span class="text">San Felipe calle 10 de Agosto entre Paraguay y
+                                                        Uruguay</span></li>
+                                                <li><span class="text">032 252-237 - 0998837004</span></a></li>
+                                            </ul>
+                                        </td>
+                                    </tr>
+                                </table>
+                            </td>
+                            <!-- <td valign="top" width="33.333%" style="padding-top: 20px;">
+                                    <table role="presentation" cellspacing="0" cellpadding="0" border="0" width="100%">
+                                        <tr>
+                                            <td style="text-align: left; padding-left: 10px;">
+                                                <h3 class="heading">Useful Links</h3>
+                                                <ul>
+                                                    <li><a href="#">Home</a></li>
+                                                    <li><a href="#">About</a></li>
+                                                    <li><a href="#">Services</a></li>
+                                                    <li><a href="#">Work</a></li>
+                                                </ul>
+                                            </td>
+                                        </tr>
+                                    </table>
+                                </td> -->
+                        </tr>
+                    </table>
+                </td>
+            </tr><!-- end: tr -->
+            <tr>
+                <td class="bg_light" style="text-align: center; margin:0%;">
+                    <p>CORPORACIÓN PIONEER SYSTEM
+                        <a href="#" style="color: rgba(0,0,0,.8);"> <br> Estamos para servirte</a>
+                    </p>
+                </td>
+            </tr>
+        </table>
+
+        </div>
+    </center>
+</body>
+
+</html>

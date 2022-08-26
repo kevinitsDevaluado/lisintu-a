@@ -1,0 +1,196 @@
+{% extends 'dashboard/base_dashboard.html' %}
+{% load static %}
+
+{% block main %}
+<link href="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/css/select2.min.css" rel="stylesheet" />
+<script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/js/select2.min.js"></script>
+
+<div id="main" class="layout-navbar">
+    <script>
+        $(function () {
+            $('.select2').select2({
+                theme: 'boostrap4',
+                language: 'es'
+            })
+        })
+
+        $(document).ready(function () {
+            $('.select2').select2();
+        });
+    </script>
+    {% include 'dashboard/componentes/header.html' %}
+
+    <div id="main-content">
+
+        <div class="page-heading">
+
+            <div class="page-title">
+                <div class="row">
+                    <div class="col-12 col-md-6 order-md-1 order-last">
+                        <h3>Información disponible a editar:</h3>
+                        <h5>{{personal.first_name}} {{personal.last_name}}</h5>
+                        <p class="text-subtitle text-muted">Detalle con la Información del trabajador a editar.</p>
+                    </div>
+                    <div class="col-12 col-md-6 order-md-2 order-first">
+                        <nav aria-label="breadcrumb" class="breadcrumb-header float-start float-lg-end">
+                            <ol class="breadcrumb">
+                                <li class="breadcrumb-item"><a href="{% url 'perfil_usuarios' personal.id %}">Detalle
+                                        del trabajador</a></li>
+                                <li class="breadcrumb-item active" aria-current="page">{{personal.first_name}}
+                                    {{personal.last_name}}</li>
+                            </ol>
+                        </nav>
+                    </div>
+                </div>
+            </div>
+
+            <section class="section">
+                <div class="card">
+                    <div class="card-header">
+                        <div class="divider m-0">
+                            <i class="bi bi-person-bounding-box" style="font-size: xxx-large;"></i><br>
+                            <div class="divider-text">Datos Personales</div>
+                        </div>
+                    </div>
+                    <div class="card-body">
+                        <form method="post">
+                            {% csrf_token %}
+                            {% if form.errors %}
+                            <p style="color: red;">Tus campos presentan los siguientes problemas revisalos e intenta
+                                nuevamente</p>
+                            {% endif %}
+                            <div class="row">
+                                <div class="col-md-6">
+                                    <div class="form-group mb-4">
+                                        <label class="mb-2" for="disabledInput">Nombre de Usuario</label>
+                                        {{form.username}}
+                                        {% if form.username.errors %}
+                                        {% for error in form.username.errors %}
+                                        <div class="alert alert-danger">
+                                            <strong>{{ error|escape }}</strong>
+                                        </div>
+                                        {% endfor %}
+                                        {% endif %}
+                                    </div>
+                                    <div class="form-group mb-4">
+                                        <label class="mb-2" for="disabledInput">Nombres</label>
+                                        {{form.first_name}}
+                                    </div>
+                                    <div class="form-group mb-4">
+                                        <label class="mb-2" for="disabledInput">Apellidos</label>
+                                        {{form.last_name}}
+                                    </div>
+                                    <div class="form-group mb-4">
+                                        <label class="mb-2" for="disabledInput">Cédula</label>
+                                        {{form2.cedula_perfil}}
+                                    </div>
+                                </div>
+                                <div class="col-md-6">
+                                    <div class="form-group mb-4">
+                                        <label class="mb-2" for="disabledInput">Teléfono</label>
+                                        {{form2.telefono_perfil}}
+                                    </div>
+                                    <div class="form-group mb-4">
+                                        <label class="mb-2" for="disabledInput">Correo Electrónico</label>
+                                        {{form.email}}
+                                    </div>
+                                    <div class="form-group mb-4">
+                                        <label class="mb-2" for="disabledInput">Dirección</label>
+                                        {{form2.direccion_perfil}}
+                                    </div>
+                                    <div class="col-md-6">
+                                        <div class="form-group mb-4">
+                                            <label class="mb-2" for="disabledInput">Contraseña</label>
+                                            <a href="javascript: noti_no_disponible();">
+                                                <p class="form-control-static aling-content-center" id="staticInput">
+                                                    Cambiar Constraseña</p>
+                                            </a>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+
+                            
+                            <div class="divider">
+                                <div class="divider-text">Datos Laborales</div>
+                            </div>
+                            <div class="row">
+                                <div class="col-md-6">
+                                    <div class="form-group mb-4">
+                                        <label class="mb-2" for="disabledInput">Area de Trabajo</label>
+                                        {{form2.area_perfil}}
+                                    </div>
+                                </div>
+                                <div class="col-md-6">
+                                    <div class="form-group mb-4">
+                                        <label class="mb-2" for="disabledInput">Cargo que Ocupa</label>
+                                        {{form2.cargo_perfil}}
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="d-flex justify-content-center">
+                                <div class="form-group mb-4 text-center">
+                                    <label class="mb-2" for="disabledInput">Estado del Trabajador</label>
+                                    {% if personal.is_active %}
+                                    <input type="text" class="form-control text-center font-weight-bold"
+                                        id="readonlyInput" readonly="readonly" value="Activo">
+                                    {% else %}
+                                    <input type="text" class="form-control text-center font-weight-bold bg-warning"
+                                        id="readonlyInput" readonly="readonly" value="Inativo">
+                                    {% endif%}
+                                </div>
+                            </div>
+                            <div class="divider">
+                                <div class="divider-text">Permisos del Usuario</div>
+                            </div>
+                            <div class="row">
+                                <div class="col-md-6">
+                                    <div class="form-group mb-4">
+                                        <label class="mb-2" for="disabledInput">Permiso de Acceso</label>
+                                        {{form.is_staff}}
+                                    </div>
+                                </div>
+                                <div class="col-md-6">
+                                    <div class="form-group mb-4">
+                                        <label class="mb-2" for="disabledInput">Lectura y Escritura para:</label>
+                                        {{form.groups}}
+                                    </div>
+                                </div>
+                            </div>
+                            
+
+
+                            <div class="divider">
+                                <div class="divider-text">Acciones</div>
+                            </div>
+                            <div class="d-grid gap-2 d-md-flex justify-content-around">
+                                <button class="btn btn-success d-flex align-items-center" type="submit"
+                                    style="margin: 5px;">
+                                    <i class="bi bi-save2 me-2"></i>Guardar
+                                </button>
+
+                                {% if user.is_superuser %}
+                                <a class="btn btn-danger d-flex align-items-center" style="margin: 5px;"
+                                    href="{% url 'listado_usuarios' %}" role="button">
+                                    <i class="bi bi-x-square me-2"></i>Cancelar
+                                </a>
+                                {% else %}
+                                <a class="btn btn-danger d-flex align-items-center" style="margin: 5px;"
+                                    href="{% url 'perfil_usuarios' personal.id %}" role="button">
+                                    <i class="bi bi-x-square me-2"></i>Cancelar
+                                </a>
+                                {% endif %}
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </section>
+
+        </div>
+
+        {% include 'dashboard/componentes/footer.html' %}
+
+    </div>
+</div>
+{% endblock main %}

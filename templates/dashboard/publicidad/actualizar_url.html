@@ -1,0 +1,93 @@
+{% extends 'dashboard/base_dashboard.html' %}
+{% load static %}
+
+{% block main %}
+<div id="main" class="layout-navbar">
+
+    {% include 'dashboard/componentes/header.html' %}
+    <div id="main-content">
+
+        <div class="page-heading">
+            <div class="page-title">
+                <div class="row">
+                    <div class="col-12 col-md-6 order-md-1 order-last">
+                        <h3>Actualización de la URL del Catálogo</h3>
+                        <p class="text-subtitle text-muted">Apartado de actualización del catálogo</p>
+                    </div>
+                    <div class="col-12 col-md-6 order-md-2 order-first">
+                        <nav aria-label="breadcrumb" class="breadcrumb-header float-start float-lg-end">
+                            <ol class="breadcrumb">
+                                <li class="breadcrumb-item"><a href="{% url 'publicidad_index' %}">Publicidad</a></li>
+                                <li class="breadcrumb-item active" aria-current="page">Actualización URL</li>
+                            </ol>
+                        </nav>
+                    </div>
+                </div>
+            </div>
+
+            <section class="section">
+                <div class="card">
+                    <div class="card-header">
+
+                        <h4>Se actualizara la URL del catálogo de la página principal</h1>
+                    </div>
+
+                    <div class="card-content">
+                        <div class="card-body">
+
+                            <form action="#" method="POST">
+                                {% csrf_token %}
+                                <div id="content3" class="mb-3">
+                                    <label class="form-label">Catálogo Drive</label>
+                                    <textarea id="texto" name="urlcontent" class="form-control" rows="1"
+                                        pattern="((https):\/\/)(docs.google.com)?(\/)(document)?"></textarea>
+
+                                    <div style="display: none ;">
+                                        <textarea id="pass" name="link"></textarea>
+                                    </div>
+                                    <script type="text/javascript">
+                                        function link() {
+                                            a1 = document.getElementById("texto").value;
+                                            if (a1 != '') {
+                                                window.open(a1)
+                                            } else {
+                                                Swal.fire(
+                                                    'Atención!',
+                                                    'No se ha Ingresado una URL',
+                                                    'warning'
+                                                )
+                                            }
+
+                                        }
+                                    </script>
+                                    <a target="_blank" onclick="link()" type="button"
+                                        class="btn btn-primary m-4">Revisar Link</a>
+                                </div>
+
+                        </div>
+                    </div>
+                    <div class="mb-3 form-check">
+                        <div class="d-grid gap-2 d-md-flex justify-content-around">
+                            <button class="btn btn-success d-flex align-items-center btn-lg" type="submit"
+                                style="margin: 5px;">
+                                <i class="bi bi-send-check me-4"></i>Enviar
+                            </button>
+                        </div>
+                    </div>
+
+
+                    </form>
+                </div>
+        </div>
+
+    </div>
+
+    </section>
+
+</div>
+
+{% include 'dashboard/componentes/footer.html' %}
+
+</div>
+</div>
+{% endblock main %}

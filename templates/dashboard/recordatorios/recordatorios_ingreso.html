@@ -1,0 +1,86 @@
+{% extends 'dashboard/base_dashboard.html' %}
+{% load static %}
+
+{% block main %}
+<div id="main" class="layout-navbar">
+
+    {% include 'dashboard/componentes/header.html' %}
+    
+    <div id="main-content">
+
+        <div class="page-heading">
+
+            <div class="page-title">
+                <div class="row">
+                    <div class="col-12 col-md-6 order-md-1 order-last">
+                        <h3>Formulario para agregar Recordatorios</h3>
+                        <h5>Nuevo Recordatorio</h5>
+                    </div>
+                    <div class="col-12 col-md-6 order-md-2 order-first">
+                        <nav aria-label="breadcrumb" class="breadcrumb-header float-start float-lg-end">
+                            <ol class="breadcrumb">
+                                <li class="breadcrumb-item"><a href="{% url 'recordatorios_index' %}">Bodega</a></li>
+                                <li class="breadcrumb-item active" aria-current="page">Registro de recordatorios</li>
+                            </ol>
+                        </nav>
+                    </div>
+                </div>
+            </div>
+
+            <section class="section">
+                <div class="card">
+                    <div class="card-header">
+                        <div class="divider m-0">
+                            <i class="bi bi-inboxes-fill" style="font-size: xxx-large;"></i><br>
+                            <div class="divider-text">Recordatorio</div>
+                        </div>
+                    </div>
+                    <div class="card-body">
+                        <form method="post">
+                            {% csrf_token %}
+                            {% if form.errors %}
+                            <p class="text-center" style="color: red;">Tus campos presentan problemas revisalos e intenta nuevamente</p>
+                            {% endif %}
+                            <div class="row">
+                                <div class="col-md-2">
+                                    <div class="form-group mb-4">
+                                        <label class="mb-2" for="disabledInput">Fecha:</label>
+                                        {{form.fecha_rec}}
+                                    </div>
+                                </div>
+                                <div class="col-md-12">
+                                    
+                                    <div class="form-group mb-4">
+                                        <label class="mb-2" for="disabledInput">Descripción:</label>
+                                        {{form.descripcion_rec}}
+                                    </div>
+                                    
+                                </div>
+                                
+                            </div>
+                            
+                            <div class="divider">
+                                <div class="divider-text">Acciones</div>
+                            </div>
+                            <div class="d-grid gap-2 d-md-flex justify-content-around">
+                                <button class="btn btn-success d-flex align-items-center" type="submit"
+                                    style="margin: 5px;">
+                                    <i class="bi bi-save2 me-2"></i>Guardar
+                                </button>
+                                <a class="btn btn-danger d-flex align-items-center" style="margin: 5px;"
+                                    href="{% url 'bodega_index' %}" role="button">
+                                    <i class="bi bi-x-square me-2"></i>Cancelar
+                                </a>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </section>
+
+        </div>
+
+    {% include 'dashboard/componentes/footer.html' %}
+
+</div>
+</div>
+{% endblock main %}

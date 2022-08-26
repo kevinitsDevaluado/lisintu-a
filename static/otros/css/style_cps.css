@@ -1,0 +1,70 @@
+@media (max-width: 1400px) {
+    #nombre_empresa {
+        font-size: xx-small;
+        display  : block;
+        display  : none;
+    }
+}
+
+@media (min-width: 1400px) {
+    #nombre_empresa_2 {
+        display: block;
+        display: none;
+    }
+}
+
+.bg-primary {
+    background-color: #d90429 !important;
+}
+
+.btn-primary {
+    color: white;
+    background-color: #d90429;
+    border-color: #d90429;
+}
+
+.dropdown-item.active, .dropdown-item:active {
+    color: #fff;
+    text-decoration: none;
+    background-color: #d90429;
+}
+
+.btn-check:focus+.btn-primary, .btn-primary:focus {
+    color: white;
+    background-color: #fb0100;
+    border-color: #fb0100;
+}
+
+.navbar-dark .navbar-nav .nav-link {
+    padding: 25px 15px;
+}
+
+.sticky-top {
+    position: sticky;
+    top: -1px;
+    z-index: 1044;
+}
+
+.form-control:focus{
+    color: #777;
+    background-color: #fff;
+    border-color: #d20b0b75;
+    outline: 0;
+    box-shadow: 0 0 0 0.15rem rgba(0, 66, 219, 0.337);
+}
+
+/*boton de submit en contactenos*/
+
+.btn-primary:hover{
+    color: #fff;
+    background-color: #00144371;
+    border-color: #d9042737;
+    border-width: medium;
+}
+
+.btn-primary:active{
+    color: white;
+    background-color: #fb0100;
+    border-color: #fb0100;
+    border-width: medium;
+}

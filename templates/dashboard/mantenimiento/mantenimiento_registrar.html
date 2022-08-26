@@ -1,0 +1,145 @@
+{% extends 'dashboard/base_dashboard.html' %}
+{% load static %}
+
+{% block main %}
+<div id="main" class="layout-navbar">
+
+    {% include 'dashboard/componentes/header.html' %}
+
+    <div id="main-content">
+
+        <div class="page-heading">
+
+            <div class="page-title">
+                <div class="row">
+                    <div class="col-12 col-md-6 order-md-1 order-last">
+                        <h3>Formulario para Generación de Fichas:</h3>
+                        <p class="text-subtitle text-muted">Formulario para la generación de una ficha de mantenimiento.</p>
+                    </div>
+                    <div class="col-12 col-md-6 order-md-2 order-first">
+                        <nav aria-label="breadcrumb" class="breadcrumb-header float-start float-lg-end">
+                            <ol class="breadcrumb">
+                                <li class="breadcrumb-item"><a href="{% url 'mantenimiento_index' %}">Mantenimientos</a>
+                                </li>
+                                <li class="breadcrumb-item active" aria-current="page">Generar Ficha</li>
+                            </ol>
+                        </nav>
+                    </div>
+                </div>
+            </div>
+
+            <section class="section">
+                <div class="card">
+                    <div class="card-header">
+                        <div class="divider m-0">
+                            <i class="bi bi-journal-text" style="font-size: xxx-large;"></i><br>
+                            <div class="divider-text">Datos Principales de la Ficha</div>
+                        </div>
+                    </div>
+                    <div class="card-body">
+                        <form method="post">
+                            {% csrf_token %}
+                            {% if form.errors %}
+                            <p class="text-center" style="color: red;">Tus campos presentan problemas revisalos e
+                                intenta nuevamente</p>
+                            {% endif %}
+                            <div class="row">
+                                <div class="col-md-6">
+                                    <div class="form-gropup">
+                                        <label for="disabledInput">Tipo de Mantenimiento</label>
+                                        {{form.tipo_man}}
+                                    </div>
+                                </div>
+                                <div class="col-md-6">
+                                    <div class="form-gropup">
+                                        <label for="disabledInput">Tipo de Equipo</label>
+                                        {{form.tipo_equipo_man}}
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="divider m-5">
+                                <div class="divider-text">Datos de Cliente y Técnico</div>
+                            </div>
+                            <div class="row">
+                                <div class="col-md-6">
+                                    <div class="form-group">
+                                        <label class="m-2" for="disabledInput">Datos Cliente</label>
+                                        {{form.cliente}}
+                                    </div>
+                                </div>
+                                <div class="col-md-6">
+                                    <div class="form-group">
+                                        <label class="m-2" for="disabledInput">Datos Técnico</label>
+                                        {{form.usuario}}
+                                    </div>
+
+                                </div>
+                            </div>
+                            <div class="divider m-5">
+                                <div class="divider-text">Datos del Equipo</div>
+                            </div>
+                            <div class="row">
+                                <div class="col-md-6">
+                                    <div class="form-group mb-4">
+                                        <label class="mb-2" for="disabledInput">Marca del Equipo</label>
+                                        {{form.marca_equipo_man}}
+                                    </div>
+                                </div>
+                                <div class="col-md-6">
+                                    <div class="form-group mb-4">
+                                        <label class="mb-2" for="disabledInput">Modelo del Equipo</label>
+                                        {{form.modelo_equipo_man}}
+                                    </div>
+                                </div>
+                                <div class="form-group mb-4">
+                                    <label class="mb-2" for="disabledInput">Accesorios del Equipo</label>
+                                    {{form.accesorios_equipo_man}}
+                                    {% if form.accesorios_equipo_man.errors %}
+                                    {% for error in form.accesorios_equipo_man.errors %}
+                                    <small class="text-danger text-uppercase" id="passwordHelpBlock">
+                                        <strong>{{ error|escape }}</strong>
+                                    </small>
+                                    {% endfor %}
+                                    {% endif %}
+                                </div>
+                                <div class="divider">
+                                    <div class="divider-text">Información</div>
+                                </div>
+                                <div class="form-group mb-4">
+                                    <label class="mb-2" for="disabledInput">Problemas del Equipo</label>
+                                    {{form.falla_equipo_man}}
+                                    {% if form.falla_equipo_man.errors %}
+                                    {% for error in form.falla_equipo_man.errors %}
+                                    <small class="text-danger text-uppercase" id="passwordHelpBlock">
+                                        <strong>{{ error|escape }}</strong>
+                                    </small>
+                                    {% endfor %}
+                                    {% endif %}
+                                </div>
+                            </div>
+                            <div class="divider">
+                                <div class="divider-text">Acciones</div>
+                            </div>
+                            <div class="d-grid gap-2 d-md-flex justify-content-around">
+                                <button class="btn btn-success d-flex align-items-center" type="submit"
+                                    style="margin: 5px;">
+                                    <i class="bi bi-save2 me-2"></i>Generar Ficha
+                                </button>
+                                <a class="btn btn-danger d-flex align-items-center" style="margin: 5px;"
+                                    href="{% url 'mantenimiento_index' %}" role="button">
+                                    <i class="bi bi-x-square me-2"></i>Cancelar
+                                </a>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </section>
+
+        </div>
+
+        {% include 'dashboard/componentes/footer.html' %}
+
+    </div>
+
+</div>
+{% endblock main %}

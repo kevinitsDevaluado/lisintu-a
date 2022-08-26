@@ -1,0 +1,100 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CPS - Inicia sesión</title>
+
+    <meta content="Corporación Pioneer Systems" name="keywords">
+    <meta content="Corporación Pioneer Systems" name="description">
+    <meta name="theme-color" media="(prefers-color-scheme: light)" content="#040f28">
+    <meta name="theme-color" media="(prefers-color-scheme: dark)" content="black">
+
+    <link rel="stylesheet" href="{% static 'dashboard/assets/css/main/app.css' %}">
+    <link rel="stylesheet" href="{% static 'dashboard/assets/css/pages/auth.css' %}">
+
+    <link rel="icon" href="{% static 'otros/img/logo_empresa_1.png' %}">
+    <!-- SweetAlert-->
+    <script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+    <!--
+    <link rel="shortcut icon" href="{% static 'dashboard/assets/images/logo/favicon.svg' %}" type="image/x-icon">
+    <link rel="shortcut icon" href="{% static 'dashboard/assets/images/logo/favicon.png' %}" type="image/png">
+        -->
+</head>
+
+<body>
+    <div id="auth">
+
+        <div class="row h-100">
+            <div class="col-lg-5 col-12 bg-iceblue">
+                <div id="auth-left" style="padding: 2rem 4rem;">
+                    <div class="auth-logo" style="margin-bottom: 5px;">
+                        <a href="{% url 'index' %}">
+                            <img src="{% static 'otros/img/logo_empresa_1.png' %}" alt="Logo"
+                                style="height:7rem; margin-left: auto; margin-right: auto; display: block;">
+                        </a>
+                        <p class="text-center" style="font-style: italic;font-size: larger;font-family: emoji;">
+                            Corporación Pioneer System</p>
+                    </div>
+                    <h1 class="auth-title text-center" style="font-size: 2rem ;">Inicia sesión.</h1>
+                    <p class="auth-subtitle mb-3">Inicie sesión con los datos del registro.
+                    </p>
+
+                    <form method="post">
+                        {% csrf_token %}
+                        <div class="form-group position-relative has-icon-left mb-4">
+                            <input name="username" required type="text" class="form-control form-control-xl" placeholder="Username">
+                            <div class="form-control-icon">
+                                <i class="bi bi-person"></i>
+                            </div>
+                        </div>
+                        <div class="form-group position-relative has-icon-left mb-4">
+                            <input name="password" required type="password" class="form-control form-control-xl" placeholder="Password">
+                            <div class="form-control-icon">
+                                <i class="bi bi-shield-lock"></i>
+                            </div>
+                        </div>
+                        <!-- error messages -->
+                        {% if form.errors %}
+                        <p class="mt-lg-4 text-center" style="color: red;">
+                            <i class="bi bi-exclamation-triangle"></i> 
+                            El usuario o la contraseña no son correctos 
+                            <i class="bi bi-exclamation-triangle"></i>
+                        </p>
+                        {% endif %}
+                        <!--
+                        <div class="form-check form-check-lg d-flex align-items-end">
+                            <input class="form-check-input me-2" type="checkbox" value="" id="flexCheckDefault">
+                            <label class="form-check-label text-gray-600" for="flexCheckDefault">
+                                Recordar Contraseña
+                            </label>
+                        </div>-->
+                        <button type="submit" class="btn btn-primary btn-block btn-lg shadow-lg mt-5">Inicia sesión.</button>
+                    </form>
+                    <!--
+                    <div class="text-center mt-5 text-lg fs-4">
+                        <p class="text-gray-600">No tienes una cuenta? <a href="{% url 'contactenos' %}"
+                                class="font-bold">Contactanos</a>.</p>
+                        <p><a class="font-bold" href="javascript: noti_no_disponible();">Olvidaste la Contraseña?</a>.</p>
+                    </div>-->
+                    <div class="text-center mt-5 text-lg fs-4">
+                        <p><a class="font-bold" href="javascript: noti_no_disponible();">Corporación Pioneer una empresa al servicio de la comunidad.</a>.</p>
+                    </div>
+                </div>
+            </div>
+            <div class="col-lg-7 d-none d-lg-block">
+                <div id="auth-right"
+                    style="background-image: url('{% static 'otros/img/login_imagen.jpg' %}'); background-size:cover;
+                    
+                    background-repeat:no-repeat;">
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="{% static 'otros/js/mensajes.js' %}"></script>
+</body>
+
+</html>

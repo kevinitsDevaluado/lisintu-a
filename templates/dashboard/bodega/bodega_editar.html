@@ -1,0 +1,201 @@
+{% extends 'dashboard/base_dashboard.html' %}
+{% load static %}
+
+{% block main %}
+<div id="main" class="layout-navbar">
+
+    {% include 'dashboard/componentes/header.html' %}
+
+    <div id="main-content">
+
+        <div class="page-heading">
+
+            <div class="page-title">
+                <div class="row">
+                    <div class="col-12 col-md-6 order-md-1 order-last">
+                        <h3>Información del elemento a editar:</h3>
+                        <h5>{{bodega.nombre_pieza}} </h5>
+                        <p class="text-subtitle text-muted">Detalle con la Información del elemento a editar.</p>
+                    </div>
+                    <div class="col-12 col-md-6 order-md-2 order-first">
+                        <nav aria-label="breadcrumb" class="breadcrumb-header float-start float-lg-end">
+                            <ol class="breadcrumb">
+                                <li class="breadcrumb-item active" aria-current="page">{{bodega.nombre_pieza}} </li>
+                            </ol>
+                        </nav>
+                    </div>
+                </div>
+            </div>
+
+            <section class="section">
+                <div class="card">
+                    <div class="card-header">
+                        <div class="divider m-0">
+                            <i class="bi bi-person-bounding-box" style="font-size: xxx-large;"></i><br>
+                            <div class="divider-text">Datos del elemento</div>
+                        </div>
+                    </div>
+                    <div class="card-body">
+                        <form method="post">
+                            {% csrf_token %}
+                            {% if form.errors %}
+                            <p style="color: red;">Tus campos presentan los siguientes problemas revisalos e intenta
+                                nuevamente</p>
+                            {% endif %}
+                            <div class="row">
+                                <div>
+                                    <div class="row">
+                                        <div class="form-group col-sm">
+                                            <label class="mb-2" for="disabledInput">{{form.nombre_pieza.label}}</label>
+                                            {{form.nombre_pieza}}
+                                            {% if form.nombre_pieza.errors %}
+                                            {% for error in form.nombre_pieza.errors %}
+                                            <div class="alert alert-danger">
+                                                <strong>{{ error|escape }}</strong>
+                                            </div>
+                                            {% endfor %}
+                                            {% endif %}
+                                            <br>
+                                            <div class="form-group mb-4">
+                                                <label class="mb-2"
+                                                    for="disabledInput">{{form.serie_pieza.label}}</label>
+                                                {{form.serie_pieza}}
+                                                {% if form.serie_pieza.errors %}
+                                                {% for error in form.serie_pieza.errors %}
+                                                <div class="alert alert-danger">
+                                                    <strong>{{ error|escape }}</strong>
+                                                </div>
+                                                {% endfor %}
+                                                {% endif %}
+                                            </div>
+                                        </div>
+                                        <div class="form-group col-sm">
+                                            <label class="mb-2"
+                                                for="disabledInput">{{form.descripcion_pieza.label}}</label>
+                                            {{form.descripcion_pieza}}
+                                            {% if form.descripcion_pieza.errors %}
+                                            {% for error in form.descripcion_pieza.errors %}
+                                            <div class="alert alert-danger">
+                                                <strong>{{ error|escape }}</strong>
+                                            </div>
+                                            {% endfor %}
+                                            {% endif %}
+                                        </div>
+                                    </div>
+
+                                    <div class="form-group ">
+                                        <label class="mb-4">{{form.cantidad_pieza.label}}</label>
+                                        <div class="container">
+                                            <div class="col-md-6 justify-content-center">
+
+                                                <div class="col-md-8">
+                                                    {{form.cantidad_pieza}}
+                                                    <br>
+                                                    <div class="row">
+                                                        <button type="button" class="btn btn-success col-sm m-2 p-1"
+                                                            onclick="inc()">Aumentar cantidad</button>
+                                                        <button type="button" class="btn btn-danger col-sm m-2 p-1"
+                                                            onclick="inc2()">Disminuir Cantidad</button>
+                                                    </div>
+                                                    <div class="row">
+                                                        <div id="vis" style="display:none ;">
+                                                            <label class="form-label"> Cantidad a Aumentar</label>
+                                                            <input name="aumento" type="number" class="form-control">
+                                                            <button type="button" class="btn btn-success m-4 p-2"
+                                                                onclick="res1()">Calcular</button>
+
+                                                        </div>
+                                                        <div id="vis2" style="display:none ;">
+                                                            <label class="form-label"> Cantidad a Disminuir</label>
+                                                            <input name="dism" type="number" class="form-control">
+                                                            <button type="button" class="btn btn-success m-4 p-2"
+                                                                onclick="res2()">Calcular</button>
+
+                                                        </div>
+                                                    </div>
+
+                                                </div>
+
+
+                                            </div>
+
+                                        </div>
+
+                                        <script>
+                                            function inc() {
+                                                element = document.getElementById('vis');
+                                                element2 = document.getElementById('vis2');
+                                                estado = element.style.display;
+                                                estado2 = element2.style.display;
+                                                if (estado == 'none') {
+                                                    element.style.display = 'block';
+                                                    element2.style.display = 'none';
+                                                } else {
+                                                    element.style.display = 'none';
+                                                }
+
+                                            }
+                                            function inc2() {
+                                                element2 = document.getElementById('vis');
+                                                element = document.getElementById('vis2');
+                                                estado = element.style.display;
+                                                estado2 = element2.style.display;
+                                                if (estado == 'none') {
+                                                    element.style.display = 'block';
+                                                    element2.style.display = 'none';
+                                                } else {
+                                                    element.style.display = 'none';
+                                                }
+
+                                            }
+                                            function res1() {
+                                                let aumento = document.querySelector('[name="aumento"]');
+                                                let number = document.querySelector('[name="cantidad_pieza"]');
+                                                number.value = parseInt(number.value) + parseInt(aumento.value);
+                                            }
+
+                                            function res2() {
+                                                let number = document.querySelector('[name="cantidad_pieza"]');
+                                                let res = document.querySelector('[name="dism"]');
+                                                if (parseInt(number.value) > 1) {
+
+                                                    number.value = parseInt(number.value) - parseInt(res.value);
+                                                }
+                                            };
+                                        </script>
+                                        {% if form.cantidad_pieza.errors %}
+                                        {% for error in form.cantidad_pieza.errors %}
+                                        <div class="alert alert-danger">
+                                            <strong>{{ error|escape }}</strong>
+                                        </div>
+                                        {% endfor %}
+                                        {% endif %}
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="divider">
+                                <div class="divider-text">Acciones</div>
+                            </div>
+                            <div class="d-grid gap-2 d-md-flex justify-content-around">
+                                <button class="btn btn-success d-flex align-items-center" type="submit"
+                                    style="margin: 5px;">
+                                    <i class="bi bi-save2 me-2"></i>Guardar
+                                </button>
+                                <a class="btn btn-danger d-flex align-items-center" style="margin: 5px;"
+                                    href="{% url 'detalle_bodega' bodega.id %}" role="button">
+                                    <i class="bi bi-x-square me-2"></i>Cancelar
+                                </a>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </section>
+
+        </div>
+
+        {% include 'dashboard/componentes/footer.html' %}
+
+    </div>
+</div>
+{% endblock main %}

@@ -1,0 +1,140 @@
+{% extends 'dashboard/base_dashboard.html' %}
+{% load static %}
+
+{% block main %}
+<div id="main" class="layout-navbar">
+
+    {% include 'dashboard/componentes/header.html' %}
+
+    <div id="main-content">
+
+        <div class="page-heading">
+
+            <div class="page-title">
+                <div class="row">
+                    <div class="col-12 col-md-6 order-md-1 order-last">
+                        <h3>Reportes de Bodega:</h3>
+                        <p class="text-subtitle text-muted">Generador de Reportes de Repuestos en Bodega.
+                        </p>
+                    </div>
+                    <div class="col-12 col-md-6 order-md-2 order-first">
+                        <nav aria-label="breadcrumb" class="breadcrumb-header float-start float-lg-end">
+                            <ol class="breadcrumb">
+                                <li class="breadcrumb-item"><a href="{% url 'reportes_index' %}">Reportes</a></li>
+                                <li class="breadcrumb-item active" aria-current="page">Reporte de Bodega</li>
+                            </ol>
+                        </nav>
+                    </div>
+                </div>
+            </div>
+
+            <section class="section">
+                <div class="card">
+                    <div class="card-header">
+                        <div class="divider m-0">
+                            <i class="bi bi-clipboard2-data" style="font-size: xxx-large;"></i><i
+                                class="bi bi-arrow-left" style="font-size: xx-large;"></i><i class="bi bi-archive"
+                                style="font-size: xx-large;"></i><br>
+                            <div class="divider-text">Generador de Reportes de Bodega</div>
+                        </div>
+                    </div>
+                    <div class="card-body">
+                        <div class="row">
+                            <div class="col-md-12">
+                                <div class="col-sm-12">
+                                    <form method="post">
+                                        {% csrf_token %}
+                                        <div class="text-center mb-2" style="display:none;">
+                                            <small id="passwordHelpBlock" class="form-text text-muted">
+                                                El reporte se Genera escogiendo el año, el mes y el técnico del cual
+                                                desea el
+                                                reporte.
+                                            </small>
+                                        </div>
+                                        <div class="row">
+                                            <div class="col-12 text-center">
+                                                <p>El reporte se Genera escogiendo el año y el mes en el que desea el reporte.</p>
+                                            </div>
+                                            <div class="col-sm-6">
+                                                <h6>Ingrese el año</h6>
+                                                <div class="form-group position-relative has-icon-right"
+                                                    style="text-align: center;">
+                                                    {{form.year}}
+                                                    <div class="form-control-icon">
+                                                        <i class="bi bi-calendar3"></i>
+                                                    </div>
+                                                </div>
+                                                <small id="passwordHelpBlock" class="form-text text-muted"
+                                                    style="text-align:center ;">
+                                                    El año debe de estar entre 2020 a 2099.
+                                                </small>
+                                            </div>
+                                            <div class="col-sm-6">
+                                                <h6>Seleccione un mes.</h6>
+                                                <div class="form-group position-relative has-icon-right">
+                                                    {{form.meses}}
+                                                    <div class="form-control-icon">
+                                                        <i class="bi bi-calendar-month"></i>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        {% if form.errors %}
+                                        <p style="color: red;">Tus campos pueden tener los siguientes problemas
+                                            revisalos e intenta nuevamente</p>
+                                        {% endif %}
+                                        <div class="row justify-content-center m-4">
+                                            <button type="submit" title="Buscar Usuario"
+                                                class="btn btn-primary col-xs-6 col-md-5">
+                                                <i class="bi bi-clipboard2-check me-2"></i>
+                                                Generar Reporte
+                                            </button>
+                                        </div>
+                                    </form>
+                                </div>
+                            </div>
+                        </div>
+
+
+
+                        {% if ficha %}
+                        <div class="divider ">
+                            <div class="divider-text">Resultado de la Generación de Reportes</div>
+                        </div>
+                        <!-- ------ DIVIDER --------- -->
+                        <div class="row">
+                            <div class="col-md-12">
+                                <div class="col-sm-12">
+                                    <div class="alert alert-successs text-center" role="alert">
+                                        <i class="bi bi-check-circle me-2"></i>
+                                        Se ha encontrado <strong>correctamente</strong> los datos ingresados.
+                                    </div>
+                                    <div class="row justify-content-center mt-1">
+                                        <a title="Generar pdf" class="btn btn-success col-xs-6 col-md-5"
+                                            href="{% url 'pdf_reporte_bodega' year mes %}" role="button" target="_blank"><i
+                                                class="bi bi-download me-2"></i>Generar PDF</a>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        {% else %}
+                        <div class="alert alert-primarys text-center" role="alert">
+                            <i class="bi bi-x-circle me-2"></i>
+                            Lo siento, no se encontró ningun resultado con los datos ingresados.
+                        </div>
+                        {% endif %}
+                        
+                        
+
+
+                    </div>
+                </div>
+            </section>
+
+        </div>
+
+        {% include 'dashboard/componentes/footer.html' %}
+
+    </div>
+</div>
+{% endblock main %}

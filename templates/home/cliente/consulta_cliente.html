@@ -1,0 +1,145 @@
+{% extends 'home/base_home.html' %}
+{% load static %}
+
+{% block carrusel %}
+{% endblock carrusel %}
+
+{% block about %}
+{% endblock about %}
+
+{% block servicios %}
+{% endblock servicios %}
+
+
+{% block contactenos %}
+<!-- Appointment Start -->
+<div class="container-fluid py-5 px-5">
+    <div class="row gx-5">
+        <div class="col-lg-4 mb-5 mb-lg-0">
+            <div class="mb-4">
+                <h1 class="display-6 text-uppercase mb-4"><span class="text-primary">Consulta </span>Tu Ficha de
+                    Soporte Técnico</h1>
+            </div>
+            <p class="mb-3">
+                Con este Formulario puedes conocer el estado en el que se encuentra tu Ficha de Soporte Técnico, Para esto
+                ingresa en el campo el <span class="text-primary">Código de la Ficha</span> que se te facilitó al
+                solicitar el servicio.
+                <br><br>Si no encuentras tu código puedes comunicarte con nosotros por medio de Correo, Llamada o
+                Whatsapp
+                que se encuentran al final de la pagina.
+                <br><br>Gracias por preferirnos
+            </p>
+            <div class="form-text">
+                Nosotros no compartiremos su información con terceros.
+                <i class="bi bi-shield-shaded" style="color:#06e80a"></i>
+            </div>
+            <!--
+                <a class="btn btn-primary py-3 px-5" href="">Get A Quote</a>
+                -->
+        </div>
+        <div class="col-lg-8">
+            <div class="bg-light text-center p-5">
+                <form method="post">
+                    {% csrf_token %}
+                    <div class="row g-3">
+                        <div class="col-12 col-sm-12">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="70" height="70" fill="currentColor"
+                                class="bi bi-search" viewBox="0 0 16 16">
+                                <path
+                                    d="M11.742 10.344a6.5 6.5 0 1 0-1.397 1.398h-.001c.03.04.062.078.098.115l3.85 3.85a1 1 0 0 0 1.415-1.414l-3.85-3.85a1.007 1.007 0 0 0-.115-.1zM12 6.5a5.5 5.5 0 1 1-11 0 5.5 5.5 0 0 1 11 0z">
+                                </path>
+                            </svg>
+                            <svg xmlns="http://www.w3.org/2000/svg" width="50" height="50" fill="currentColor"
+                                class="bi bi-arrow-right" viewBox="0 0 16 16">
+                                <path fill-rule="evenodd"
+                                    d="M1 8a.5.5 0 0 1 .5-.5h11.793l-3.147-3.146a.5.5 0 0 1 .708-.708l4 4a.5.5 0 0 1 0 .708l-4 4a.5.5 0 0 1-.708-.708L13.293 8.5H1.5A.5.5 0 0 1 1 8z">
+                                </path>
+                            </svg>
+                            <svg xmlns="http://www.w3.org/2000/svg" width="70" height="70" fill="currentColor"
+                                class="bi bi-file-binary" viewBox="0 0 16 16">
+                                <path
+                                    d="M5.526 13.09c.976 0 1.524-.79 1.524-2.205 0-1.412-.548-2.203-1.524-2.203-.978 0-1.526.79-1.526 2.203 0 1.415.548 2.206 1.526 2.206zm-.832-2.205c0-1.05.29-1.612.832-1.612.358 0 .607.247.733.721L4.7 11.137a6.749 6.749 0 0 1-.006-.252zm.832 1.614c-.36 0-.606-.246-.732-.718l1.556-1.145c.003.079.005.164.005.249 0 1.052-.29 1.614-.829 1.614zm5.329.501v-.595H9.73V8.772h-.69l-1.19.786v.688L8.986 9.5h.05v2.906h-1.18V13h3z">
+                                </path>
+                                <path
+                                    d="M4 0a2 2 0 0 0-2 2v12a2 2 0 0 0 2 2h8a2 2 0 0 0 2-2V2a2 2 0 0 0-2-2H4zm0 1h8a1 1 0 0 1 1 1v12a1 1 0 0 1-1 1H4a1 1 0 0 1-1-1V2a1 1 0 0 1 1-1z">
+                                </path>
+                            </svg>
+                        </div>
+                        <div class="col-12 col-sm-12 py-3">
+                            <label class="mb-3 blockquote" for="disabledInput">Código del Soporte Técnico</label>
+                            {{form.codigo_ficha}}
+                        </div>
+                        <!-- error messages -->
+                        {% if form.errors %}
+                        <p class="mt-lg-4" style="color: red;">
+                            <i class="bi bi-exclamation-triangle"></i>
+                            Alguno de los campos presenta un error intente nuevamente.
+                            <i class="bi bi-exclamation-triangle"></i>
+                        </p>
+                        {% endif %}
+                        <div class="col-12">
+                            <button style="width: 50%; border-radius: 30px;" class="btn btn-primary w-80 py-3"
+                                type="submit">
+                                Consultar ...
+                                <i class="fa fa-paper-plane ms-2"></i></button>
+                        </div>
+                    </div>
+                </form>
+                <hr>
+
+                {% if flag == 1 %}
+                <div class="alert alert-successs text-center" role="alert">
+                    <i class="bi bi-check-circle m-2"></i>Se ha encontrado la ficha con Código :
+                    <strong>{{codigo_ficha.codigo_man}}</strong> con los
+                    siguientes datos:
+                </div>
+                {% elif flag == 2 %}
+                <div class="alert alert-successs text-center" role="alert">
+                    <i class="bi bi-x-circle m-2"></i>
+                    No Se ha encontrado la ficha con Código : <strong>{{codigo}}</strong>. Para más
+                    información contactenos.
+                </div>
+                {% else %}
+                {% endif %}
+
+                {% if codigo_ficha %}
+                <hr><br>
+                <p style="font-weight: bolder; font-size:x-large">Detalles de la Ficha : {{codigo_ficha.codigo_man}}</p>
+                <div class="row gx-5 py-2" style="text-align: initial">
+                    <div class="col-sm-12 mb-2">
+                        <p class="fw-bold mb-2"><i class="fa fa-check text-primary me-3"></i><strong>Fecha de Ingreso :
+                            </strong>{{codigo_ficha.fecha_ingreso_man}}</p>
+                        <p class="fw-bold mb-2"><i class="fa fa-check text-primary me-3"></i><strong>Estado de Ficha :
+                            </strong>{{codigo_ficha.estado_man}}</p>
+                        <p class="fw-bold mb-2"><i class="fa fa-check text-primary me-3"></i><strong>Cliente :
+                            </strong>{{codigo_ficha.cliente}}</p>
+                            <p class="fw-bold mb-2"><i class="fa fa-check text-primary me-3"></i><strong>Tipo de
+                                Mantenimiento :
+                            </strong>{{codigo_ficha.tipo_man}}</p>
+                        <p class="fw-bold mb-2"><i class="fa fa-check text-primary me-3"></i><strong>Tipo de Equipo :
+                            </strong>{{codigo_ficha.tipo_equipo_man}}</p>
+                    </div>
+                </div>
+                {% endif %}
+
+
+            </div>
+
+        </div>
+    </div>
+</div>
+<!-- Appointment End -->
+{% endblock contactenos %}
+
+
+{% block portafolio %}
+{% endblock portafolio %}
+
+{% block team %}
+{% endblock team %}
+
+{% block testimonio %}
+{% endblock testimonio %}
+
+{% block blog %}
+{% endblock blog %}

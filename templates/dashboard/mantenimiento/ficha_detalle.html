@@ -1,0 +1,201 @@
+{% extends 'dashboard/base_dashboard.html' %}
+{% load static %}
+
+{% block main %}
+<div id="main" class="layout-navbar">
+
+    {% include 'dashboard/componentes/header.html' %}
+
+    <div id="main-content">
+
+        <div class="page-heading">
+
+            <div class="page-title">
+                <div class="row">
+                    <div class="col-12 col-md-6 order-md-1 order-last">
+                        <h3>Información detallada de la Ficha :</h3>
+                        <h5>Código Ficha : {{ficha.codigo_man}}</h5>
+                        <p class="text-subtitle text-muted">Detalle de la ficha para Mantenimiento de un equipo.</p>
+                    </div>
+                    <div class="col-12 col-md-6 order-md-2 order-first">
+                        <nav aria-label="breadcrumb" class="breadcrumb-header float-start float-lg-end">
+                            <ol class="breadcrumb">
+
+                                {% if user.is_staff %}
+                                <li class="breadcrumb-item">
+                                    <a href="{% url 'mantenimiento_listado' %}">Listado de Fichas</a>
+                                </li>
+                                {% else %}
+                                <li class="breadcrumb-item">
+                                    <a href="{% url 'busqueda_fichas' %}">Busqueda Ficha</a>
+                                </li>
+                                </a>
+                                {% endif %}
+                                <li class="breadcrumb-item active" aria-current="page">Detalle de Ficha</li>
+                            </ol>
+                        </nav>
+                    </div>
+                </div>
+            </div>
+
+            <section class="section">
+                <div class="card">
+                    <div class="card-header">
+                        <div class="divider m-0">
+                            <i class="bi bi-journal-text" style="font-size: xxx-large;"></i><br>
+                            <div class="divider-text">Datos de la Ficha</div>
+                        </div>
+                    </div>
+                    <div class="card-body">
+                        <div class="row">
+                            <div class="col-md-6">
+                                <div class="form-group mb-4">
+                                    <label class="mb-2" for="disabledInput">Código de la Ficha</label>
+                                    <input name="codigo_ficha" type="text" class="form-control" id="readonlyInput"
+                                        readonly="readonly" value="{{ficha.codigo_man}}">
+                                </div>
+                                <div class="form-group mb-4">
+                                    <label class="mb-2" for="disabledInput">Fecha de Entrega</label>
+                                    <input type="text" class="form-control" id="readonlyInput" readonly="readonly"
+                                        value="{{ficha.fecha_entrega_man}}">
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="form-group mb-4">
+                                    <label class="mb-2" for="disabledInput">Fecha de Ingreso</label>
+                                    <input type="text" class="form-control" id="readonlyInput" readonly="readonly"
+                                        value="{{ficha.fecha_ingreso_man}}">
+                                </div>
+                                <div class="form-group mb-4">
+                                    <label class="mb-2" for="disabledInput">Fecha de Salida</label>
+                                    <input type="text" class="form-control" id="readonlyInput" readonly="readonly"
+                                        value="{{ficha.fecha_salida_man}}">
+                                </div>
+                            </div>
+                        </div>
+                        <div class="divider">
+                            <div class="divider-text">Datos del Cliente y Técnico</div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-6">
+                                <div class="form-group mb-4">
+                                    <label class="mb-2" for="disabledInput">Cliente</label>
+                                    <input type="text" class="form-control" id="readonlyInput" readonly="readonly"
+                                        value="{{ficha.cliente}}">
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="form-group mb-4">
+                                    <label class="mb-2" for="disabledInput">Técnico</label>
+                                    <input type="text" class="form-control" id="readonlyInput" readonly="readonly"
+                                        value="{{ficha.usuario}}">
+                                </div>
+                            </div>
+                        </div>
+                        <div class="divider">
+                            <div class="divider-text">Datos del Mantenimiento</div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-4">
+                                <div class="form-group mb-4">
+                                    <label class="mb-2" for="disabledInput">Tipo de Mantenimiento</label>
+                                    <input type="text" class="form-control" id="readonlyInput" readonly="readonly"
+                                        value="{{ficha.tipo_man}}">
+                                </div>
+                            </div>
+                            <div class="col-md-4">
+                                <div class="form-group mb-4">
+                                    <label class="mb-2" for="disabledInput">Estado del Mantenimiento</label>
+                                    <input type="text" class="form-control" id="readonlyInput" readonly="readonly"
+                                        value="{{ficha.estado_man}}">
+                                </div>
+                            </div>
+                            <div class="col-md-4">
+                                <div class="form-group mb-4">
+                                    <label class="mb-2" for="disabledInput">Costo del Mantenimiento</label>
+                                    <input type="text" class="form-control" id="readonlyInput" readonly="readonly"
+                                        value="{{ficha.costo_man}}">
+                                </div>
+                            </div>
+                        </div>
+                        <div class="divider">
+                            <div class="divider-text">Datos del Equipo</div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-4">
+                                <div class="form-group mb-4">
+                                    <label class="mb-2" for="disabledInput">Tipo de Equipo</label>
+                                    <input type="text" class="form-control" id="readonlyInput" readonly="readonly"
+                                        value="{{ficha.tipo_equipo_man}}">
+                                </div>
+                            </div>
+                            <div class="col-md-4">
+                                <div class="form-group mb-4">
+                                    <label class="mb-2" for="disabledInput">Marca del Equipo</label>
+                                    <input type="text" class="form-control" id="readonlyInput" readonly="readonly"
+                                        value="{{ficha.marca_equipo_man}}">
+                                </div>
+                            </div>
+                            <div class="col-md-4">
+                                <div class="form-group mb-4">
+                                    <label class="mb-2" for="disabledInput">Modelo del Equipo</label>
+                                    <input type="text" class="form-control" id="readonlyInput" readonly="readonly"
+                                        value="{{ficha.modelo_equipo_man}}">
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-6">
+                                <div class="form-group mb-4">
+                                    <label class="mb-2" for="disabledInput">Accesorios del Equipo</label>
+                                    <textarea class="form-control" id="exampleFormControlTextarea1" rows="3"
+                                        readonly="readonly">{{ficha.accesorios_equipo_man}}</textarea>
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="form-group mb-4">
+                                    <label class="mb-2" for="disabledInput">Problemas del Equipo</label>
+                                    <textarea class="form-control" id="exampleFormControlTextarea1" rows="3"
+                                        readonly="readonly">{{ficha.falla_equipo_man}}</textarea>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="divider">
+                            <div class="divider-text">Obseraciones del Técnico</div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-6">
+                                <div class="form-group mb-4">
+                                    <label class="mb-2" for="disabledInput">Procedimiento del Técnico</label>
+                                    <textarea class="form-control" id="exampleFormControlTextarea1" rows="3"
+                                        readonly="readonly">{{ficha.procedimiento_man}}</textarea>
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="form-group mb-4">
+                                    <label class="mb-2" for="disabledInput">Otras Observaciones</label>
+                                    <textarea class="form-control" id="exampleFormControlTextarea1" rows="3"
+                                        readonly="readonly">{{ficha.observaciones_man}}</textarea>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="divider">
+                            <div class="divider-text">Acciones</div>
+                        </div>
+                        <center>
+                        <a class="btn btn-success " href="{% url 'pdf_ficha' ficha.id %}"
+                            role="button" target="_blank">
+                            <i class="bi bi-download me-2"></i>Generar PDF
+                        </a></center>
+                    </div>
+                </div>
+            </section>
+
+        </div>
+
+        {% include 'dashboard/componentes/footer.html' %}
+
+    </div>
+</div>
+
+{% endblock main %}

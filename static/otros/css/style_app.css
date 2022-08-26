@@ -1,0 +1,14 @@
+input.form-control:invalid { border-color: red; } 
+input.form-control, input.form-control:valid { border-color: rgb(14, 182, 5); }
+
+#main-content > div > section > div > div.card-body > form > div:nth-child(2) > div:nth-child(1) > div > span{
+    /*width: 100% !important;*/ color: black !important;
+}
+
+#select2-id_cliente-results > li{
+    color: black !important;
+}
+
+#select2-id_usuario-results > li{
+    color: black !important;
+}

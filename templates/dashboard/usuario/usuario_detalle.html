@@ -1,0 +1,142 @@
+{% extends 'dashboard/base_dashboard.html' %}
+{% load static %}
+
+{% block main %}
+<div id="main" class="layout-navbar">
+
+    {% include 'dashboard/componentes/header.html' %}
+
+    <div id="main-content">
+
+        <div class="page-heading">
+
+            <div class="page-title">
+                <div class="row">
+                    <div class="col-12 col-md-6 order-md-1 order-last">
+                        <h3>Información detallada del personal :</h3>
+                        <h5>{{personal.first_name}} {{personal.last_name}}</h5>
+                        <p class="text-subtitle text-muted">Detalle con la Información laboral y personal.</p>
+                    </div>
+                    <div class="col-12 col-md-6 order-md-2 order-first">
+                        <nav aria-label="breadcrumb" class="breadcrumb-header float-start float-lg-end">
+                            <ol class="breadcrumb">
+                                
+                                {% if user.is_staff %}
+                                <li class="breadcrumb-item">
+                                    <a href="{% url 'listado_usuarios' %}">Listado de Personal</a>
+                                </li>
+                                {% else %}
+                                <li class="breadcrumb-item">
+                                    <a href="{% url 'dashboard_index' %}">Página Principal</a>
+                                </li>
+                                {% endif %}
+                                    
+                                <li class="breadcrumb-item active" aria-current="page">Detalle de
+                                    {{personal.first_name}} {{personal.last_name}}</li>
+                            </ol>
+                        </nav>
+                    </div>
+                </div>
+            </div>
+
+            <section class="section">
+                <div class="card">
+                    <div class="card-header">
+                        <div class="divider m-0">
+                            <i class="bi bi-person-lines-fill" style="font-size: xxx-large;"></i><br>
+                            <div class="divider-text">Datos Personales</div>
+                        </div>
+                    </div>
+                    <div class="card-body">
+                        <div class="row">
+                            <div class="col-md-6">
+                                <div class="form-group mb-4">
+                                    <label class="mb-2" for="disabledInput">Nombre Completo</label>
+                                    <input type="text" class="form-control" id="readonlyInput" readonly="readonly"
+                                        value="{{personal.first_name}} {{personal.last_name}}">
+                                </div>
+                                <div class="form-group mb-4">
+                                    <label class="mb-2" for="disabledInput">Teléfono</label>
+                                    <input type="text" class="form-control" id="readonlyInput" readonly="readonly"
+                                        value="{{personal.perfil.telefono_perfil}}">
+                                </div>
+                                <div class="form-group mb-4">
+                                    <label class="mb-2" for="disabledInput">Dirección</label>
+                                    <input type="text" class="form-control" id="readonlyInput" readonly="readonly"
+                                        value="{{personal.perfil.direccion_perfil}}">
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="form-group mb-4">
+                                    <label class="mb-2" for="disabledInput">Cédula</label>
+                                    <input type="text" class="form-control" id="readonlyInput" readonly="readonly"
+                                        value="{{personal.perfil.cedula_perfil}}">
+                                </div>
+                                <div class="form-group mb-4">
+                                    <label class="mb-2" for="disabledInput">Correo Electrónico</label>
+                                    <input type="text" class="form-control" id="readonlyInput" readonly="readonly"
+                                        value="{{personal.email}}">
+                                </div>
+                            </div>
+                        </div>
+                        <div class="divider">
+                            <div class="divider-text">Datos Laborales</div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-6">
+                                <div class="form-group mb-4">
+                                    <label class="mb-2" for="disabledInput">Area de trabajo</label>
+                                    <input type="text" class="form-control" id="readonlyInput" readonly="readonly"
+                                        value="{{personal.perfil.area_perfil}}">
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="form-group mb-4">
+                                    <label class="mb-2" for="disabledInput">Cargo que ocupa</label>
+                                    <input type="text" class="form-control" id="readonlyInput" readonly="readonly"
+                                        value="{{personal.perfil.cargo_perfil}}">
+                                </div>
+                            </div>
+                            <div class="d-flex justify-content-center">
+                                <div class="form-group mb-4 text-center">
+                                    <label class="mb-2" for="disabledInput">Estado del Trabajador</label>
+                                    {% if personal.is_active %}
+                                    <input type="text" style="color: white;"
+                                        class="form-control text-center font-weight-bold bg-success" id="readonlyInput"
+                                        readonly="readonly" value="Activo">
+                                    {% else %}
+                                    <input type="text" style="color: black;"
+                                        class="form-control text-center font-weight-bold bg-warning" id="readonlyInput"
+                                        readonly="readonly" value="Inativo">
+                                    {% endif%}
+                                </div>
+                            </div>
+                        </div>
+                        <div class="divider">
+                            <div class="divider-text">Acciones</div>
+                        </div>
+                        <div class="d-grid gap-2 d-md-flex justify-content-around">
+                            <a class="btn btn-primary d-flex align-items-center"
+                                href="{% url 'editar_usuarios' personal.id user.id %}" role="button">
+                                <i class="bi bi-pencil-square me-2"></i>Editar Información
+                            </a>
+
+                            {% if user.is_superuser %}
+                            <a class="btn btn-danger d-flex align-items-center {% if not personal.is_active %}disabled{% endif %}"
+                                href="{% url 'eliminar_usuarios' personal.id %}" role="button">
+                                <i class="bi bi-x-square me-2"></i>Elimnar Personal
+                            </a>
+                            {% endif %}
+
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+        </div>
+
+        {% include 'dashboard/componentes/footer.html' %}
+
+    </div>
+</div>
+{% endblock main %}

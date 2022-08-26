@@ -1,0 +1,473 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="es" xmlns="http://www.w3.org/1999/xhtml" xmlns:v="urn:schemas-microsoft-com:vml"
+    xmlns:o="urn:schemas-microsoft-com:office:office">
+
+<head>
+    <meta charset="utf-8"> <!-- utf-8 works for most cases -->
+    <meta name="viewport" content="width=device-width"> <!-- Forcing initial-scale shouldn't be necessary -->
+    <meta http-equiv="X-UA-Compatible" content="IE=edge"> <!-- Use the latest (edge) version of IE rendering engine -->
+    <meta name="x-apple-disable-message-reformatting"> <!-- Disable auto-scale in iOS 10 Mail entirely -->
+    <title></title> <!-- The title tag shows in email notifications, like Android 4.4. -->
+
+    <link href="https://fonts.googleapis.com/css?family=Poppins:200,300,400,500,600,700" rel="stylesheet">
+
+    <!-- CSS Reset : BEGIN -->
+    <style>
+        /* What it does: Remove spaces around the email design added by some email clients. */
+        /* Beware: It can remove the padding / margin and add a background color to the compose a reply window. */
+        html,
+        body {
+            margin: 0 auto !important;
+            padding: 0 !important;
+            height: 98% !important;
+            width: 100% !important;
+            background: #f1f1f1;
+        }
+
+        /* What it does: Stops email clients resizing small text. */
+        * {
+            -ms-text-size-adjust: 100%;
+            -webkit-text-size-adjust: 100%;
+        }
+
+        /* What it does: Centers email on Android 4.4 */
+        div[style*="margin: 16px 0"] {
+            margin: 0 !important;
+        }
+
+        /* What it does: Stops Outlook from adding extra spacing to tables. */
+        table,
+        td {
+            mso-table-lspace: 0pt !important;
+            mso-table-rspace: 0pt !important;
+        }
+
+        /* What it does: Fixes webkit padding issue. */
+        table {
+            border-spacing: 0 !important;
+            border-collapse: collapse !important;
+            table-layout: fixed !important;
+            margin: 0 auto !important;
+        }
+
+        /* What it does: Uses a better rendering method when resizing images in IE. */
+        img {
+            -ms-interpolation-mode: bicubic;
+        }
+
+        /* What it does: Prevents Windows 10 Mail from underlining links despite inline CSS. Styles for underlined links should be inline. */
+        a {
+            text-decoration: none;
+        }
+
+        /* What it does: A work-around for email clients meddling in triggered links. */
+        *[x-apple-data-detectors],
+        /* iOS */
+        .unstyle-auto-detected-links *,
+        .aBn {
+            border-bottom: 0 !important;
+            cursor: default !important;
+            color: inherit !important;
+            text-decoration: none !important;
+            font-size: inherit !important;
+            font-family: inherit !important;
+            font-weight: inherit !important;
+            line-height: inherit !important;
+        }
+
+        /* What it does: Prevents Gmail from displaying a download button on large, non-linked images. */
+        .a6S {
+            display: none !important;
+            opacity: 0.01 !important;
+        }
+
+        /* What it does: Prevents Gmail from changing the text color in conversation threads. */
+        .im {
+            color: inherit !important;
+        }
+
+        /* If the above doesn't work, add a .g-img class to any image in question. */
+        img.g-img+div {
+            display: none !important;
+        }
+
+        /* What it does: Removes right gutter in Gmail iOS app: https://github.com/TedGoas/Cerberus/issues/89  */
+        /* Create one of these media queries for each additional viewport size you'd like to fix */
+
+        /* iPhone 4, 4S, 5, 5S, 5C, and 5SE */
+        @media only screen and (min-device-width: 320px) and (max-device-width: 374px) {
+            u~div .email-container {
+                min-width: 320px !important;
+            }
+        }
+
+        /* iPhone 6, 6S, 7, 8, and X */
+        @media only screen and (min-device-width: 375px) and (max-device-width: 413px) {
+            u~div .email-container {
+                min-width: 375px !important;
+            }
+        }
+
+        /* iPhone 6+, 7+, and 8+ */
+        @media only screen and (min-device-width: 414px) {
+            u~div .email-container {
+                min-width: 414px !important;
+            }
+        }
+    </style>
+
+    <!-- CSS Reset : END -->
+
+    <!-- Progressive Enhancements : BEGIN -->
+    <style>
+        .primary {
+            background: #17bebb;
+
+        }
+
+        .bg_white {
+            background: #ffffff;
+        }
+
+        .bg_light {
+            background: #f7fafa;
+        }
+
+        .bg_black {
+            background: #000000;
+        }
+
+        .bg_dark {
+            background: rgba(0, 0, 0, .8);
+        }
+
+        .email-section {
+            padding: 2.5em;
+        }
+
+        /*BUTTON*/
+        .btn {
+            padding: 10px 15px;
+            display: inline-block;
+        }
+
+        .btn.btn-primary {
+            border-radius: 5px;
+            background: #17bebb;
+            color: #ffffff;
+        }
+
+        .btn.btn-white {
+            border-radius: 5px;
+            background: #ffffff;
+            color: #000000;
+        }
+
+        .btn.btn-white-outline {
+            border-radius: 5px;
+            background: transparent;
+            border: 1px solid #fff;
+            color: #fff;
+        }
+
+        .btn.btn-black-outline {
+            border-radius: 0px;
+            background: transparent;
+            border: 2px solid #000;
+            color: #000;
+            font-weight: 700;
+        }
+
+        .btn-custom {
+            color: rgba(0, 0, 0, .3);
+            text-decoration: underline;
+        }
+
+        h1,
+        h2,
+        h3,
+        h4,
+        h5,
+        h6 {
+            font-family: 'Poppins', sans-serif;
+            color: #000000;
+            margin-top: 0;
+            font-weight: 400;
+        }
+
+        body {
+            font-family: 'Poppins', sans-serif;
+            font-weight: 400;
+            font-size: 12px;
+            /*15*/
+            line-height: 1.8;
+            color: rgba(0, 0, 0, .4);
+        }
+
+        a {
+            /*color: #17bebb;*/
+            color: #5b991a;
+            line-height: 1;
+        }
+
+        table {}
+
+        /*LOGO*/
+
+        .logo h1 {
+            margin: 0;
+        }
+
+        .logo h1 a {
+            /*color: #17bebb;*/
+            color: #5b991a;
+            font-size: 24px;
+            font-weight: 700;
+            font-family: 'Poppins', sans-serif;
+        }
+
+        /*HERO*/
+        .hero {
+            position: relative;
+            z-index: 0;
+        }
+
+        .hero .text {
+            color: rgba(0, 0, 0, .3);
+        }
+
+        .hero .text h2 {
+            color: #000;
+            font-size: 34px;
+            margin-bottom: 0;
+            font-weight: 200;
+            line-height: 1.4;
+        }
+
+        .hero .text h3 {
+            font-size: 24px;
+            font-weight: 300;
+        }
+
+        .hero .text h2 span {
+            font-weight: 600;
+            color: #000;
+        }
+
+        .text-author {
+            bordeR: 1px solid rgba(0, 0, 0, .05);
+            max-width: 50%;
+            margin: 0 auto;
+            padding: 2em;
+        }
+
+        .text-author img {
+            border-radius: 50%;
+            padding-bottom: 20px;
+        }
+
+        .text-author h3 {
+            margin-bottom: 0;
+        }
+
+        ul.social {
+            padding: 0;
+        }
+
+        ul.social li {
+            display: inline-block;
+            margin-right: 10px;
+        }
+
+        /*FOOTER*/
+
+        .footer {
+            border-top: 1px solid rgba(0, 0, 0, .05);
+            color: rgba(0, 0, 0, .5);
+        }
+
+        .footer .heading {
+            color: #000;
+            font-size: 15px;
+        }
+
+        .footer ul {
+            margin: 0;
+            padding: 0;
+        }
+
+        .footer ul li {
+            list-style: none;
+            margin-bottom: 10px;
+        }
+
+        .footer ul li a {
+            color: rgba(0, 0, 0, 1);
+        }
+
+
+        @media screen and (max-width: 500px) {}
+    </style>
+
+
+</head>
+
+<body width="100%" style="margin: 0; padding: 0 !important; mso-line-height-rule: exactly; background-color: #f1f1f1;">
+    <center style="width: 100%; background-color: #f1f1f1;">
+        <div
+            style="display: none; font-size: 1px;max-height: 0px; max-width: 0px; opacity: 0; overflow: hidden; mso-hide: all; font-family: sans-serif;">
+            &zwnj;&nbsp;&zwnj;&nbsp;&zwnj;&nbsp;&zwnj;&nbsp;&zwnj;&nbsp;&zwnj;&nbsp;&zwnj;&nbsp;&zwnj;&nbsp;&zwnj;&nbsp;&zwnj;&nbsp;&zwnj;&nbsp;&zwnj;&nbsp;&zwnj;&nbsp;&zwnj;&nbsp;&zwnj;&nbsp;&zwnj;&nbsp;&zwnj;&nbsp;&zwnj;&nbsp;
+        </div>
+        <div style="max-width: 600px; margin: 20px auto;" class="email-container">
+            <!-- BEGIN BODY -->
+            <table align="center" role="presentation" cellspacing="0" cellpadding="0" border="0" width="100%"
+                style="margin: auto;">
+                <tr>
+                    <td valign="top" class="bg_white" style="padding: 1em 1.5em 0 2.5em;">
+                        <table role="presentation" border="0" cellpadding="0" cellspacing="0" width="100%">
+                            <tr>
+                                <td style="text-align: center;">
+
+                                    <!-- <div class="text-center"style="background-image: url('{% static 'img/tricolor.png' %}'); padding: 4px; background-size: 100% 100%; background-repeat: no-repeat;"></div> -->
+                                    <!-- <img src="/static/img/LogoMTOP2017.png" alt="logo_MTOP"> -->
+                                    <img src="data:image/jpeg;base64,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" alt="Logo_MTOP" width="15%">
+                                    <h2 style="margin: 0%; color: black; font-weight: bolder; margin-top: 15px;">
+                                        CORPORACIÓN PIONEER SYSTEMS</h1>
+                                        <hr style="height: 2px; color: black; background-color: black;">
+                                        <!--
+                                        <section id="contact" class="" style="padding: 5px; background: rgba(0, 1, 63, 0.505); ">
+                                            -->
+                                            <!-- ojo esta es la linea azul -->
+                                        </section>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td class="logo" style="text-align: center; color: #5b9919; ">
+                                    <h3 style="font-weight: bolder; margin-top:10px; margin-bottom: 10px;">Notificación
+                                        de Consulta del sistema.</h3>
+                                </td>
+                            </tr>
+                        </table>
+                    </td>
+                </tr><!-- end tr -->
+                <tr>
+                    <td valign="middle" class="hero bg_white" style="padding: 1.5px 0 4em 0;">
+                        <table role="presentation" border="0" cellpadding="0" cellspacing="0" width="100%">
+                            <tr>
+                                <td style="padding: 0 2.5em; text-align: center; padding-bottom: 2em; font-size: 15px;">
+                                    <div class="text">
+                                        <h4 style="margin-bottom: 5px;">Un gusto saludarle, <strong>Administrador del
+                                                Sistema de CPS para la Gestión de Servicios</strong>,
+                                            este correo es para informarle que se ha generado un nuevo
+                                            <strong>Requerimiento o Consulta </strong>
+                                            de la página de consultas con los detalles que se le presentan a
+                                            continuación.
+                                        </h4>
+                                        <hr style="height: 2px; color: black; background-color: black;">
+                                        <p style="text-align: center; margin: 0px; color: #000000; font-size: larger;
+                                        font-weight: bold;">Datos del Usuario<br> </p>
+
+                                        <p style="text-align: left; margin: 0px; color: black; font-size: 12px;">
+                                            <strong> Nombre del Solicitante:</strong> {{nombre}}<br>
+                                            <strong> Correo Electrónico:</strong> {{correo}}<br>
+                                            <strong> Teléfono de contacto:</strong> {{telefono}}<br>
+                                        </p>
+                                        <hr style="height: 2px; color: black; background-color: black;">
+                                        <p style="text-align: center; margin: 0px; color: #000000; font-size: larger;
+                                        font-weight: bold;">Datos de la Consulta.<br> </p>
+
+                                        <p style="text-align: left; margin: 0px; color: black; font-size: 12px;">
+                                            <strong>Motivo del requerimiento o consulta:</strong><br>{{mensaje}}
+                                        </p>
+                                    </div>
+                                </td>
+                            </tr>
+                            <tr>
+                                <!--
+                                <td style="text-align: center;">
+                                    <div class="text-author">
+                                        
+                                        <img id="publi" class="img-thumbnail rounded mx-auto d-blockl"
+                                            src="/media/{{i.photo}}" alt="Responsive image">
+                                            
+                                        <img src="{% static 'OTROS/assets/img/au.png' %}" alt=""
+                                            style="width: 100px; max-width: 600px; height: auto; margin: auto; display: block;">
+                                        <h3 class="name">{{datosparticipante.apellido_pat}} {{datosparticipante.nombre1}}</h3>
+                                        <span class="position">CEO, Founder at e-Verify</span>
+                                        <p><a href="#" class="btn btn-primary">Accept Request</a></p>
+                                        <p><a href="#" class="btn-custom">Ignore Request</a></p> -->
+        </div>
+        </td>
+        </tr>
+        </table>
+        </td>
+        </tr><!-- end tr -->
+        <!-- 1 Column Text + Button : END -->
+        </table>
+        <table align="center" role="presentation" cellspacing="0" cellpadding="0" border="0" width="100%"
+            style="margin: auto; font: size 15px;">
+            <tr>
+                <td valign="middle" class="bg_light footer email-section"
+                    style="padding: 15px; padding-bottom: 0%; padding-top: 0%;">
+                    <table>
+                        <tr>
+                            <td valign="top" width="33.333%" style="padding-top: 0px;">
+                                <table role="presentation" cellspacing="0" cellpadding="0" border="0" width="100%">
+                                    <tr>
+                                        <td style="text-align: left; padding-right: 10px;">
+                                            <h3 class="heading" style="text-align:center; margin-bottom:2px;">Conocenos:
+                                            </h3>
+                                            <p style="margin-top: 0%; margin-bottom: 0%;">CORPORACIÓN PIONEER UNA EMPRESA AL SERVICIO DE LA COMUNIDAD
+                                            </p>
+                                        </td>
+                                    </tr>
+                                </table>
+                            </td>
+                            <td valign="top" width="33.333%" style="padding-top: 0px;">
+                                <table role="presentation" cellspacing="0" cellpadding="0" border="0" width="100%">
+                                    <tr>
+                                        <td style="text-align: left; padding-left: 5px; padding-right: 5px;">
+                                            <h3 class="heading" style="text-align:center; margin-bottom:2px;">
+                                                Contactenos:</h3>
+                                            <ul style="margin-top: 0%;  margin-bottom: 0%;">
+                                                <li><span class="text">San Felipe calle 10 de Agosto entre Paraguay y Uruguay</span></li>
+                                                <li><span class="text">032 252-237 - 0998837004</span></a></li>
+                                            </ul>
+                                        </td>
+                                    </tr>
+                                </table>
+                            </td>
+                            <!-- <td valign="top" width="33.333%" style="padding-top: 20px;">
+                                    <table role="presentation" cellspacing="0" cellpadding="0" border="0" width="100%">
+                                        <tr>
+                                            <td style="text-align: left; padding-left: 10px;">
+                                                <h3 class="heading">Useful Links</h3>
+                                                <ul>
+                                                    <li><a href="#">Home</a></li>
+                                                    <li><a href="#">About</a></li>
+                                                    <li><a href="#">Services</a></li>
+                                                    <li><a href="#">Work</a></li>
+                                                </ul>
+                                            </td>
+                                        </tr>
+                                    </table>
+                                </td> -->
+                        </tr>
+                    </table>
+                </td>
+            </tr><!-- end: tr -->
+            <tr>
+                <td class="bg_light" style="text-align: center; margin:0%;">
+                    <p>CORPORACIÓN PIONEER SYSTEM
+                        <a href="#" style="color: rgba(0,0,0,.8);">Estamos para servirte</a>
+                    </p>
+                </td>
+            </tr>
+        </table>
+
+        </div>
+    </center>
+</body>
+
+</html>

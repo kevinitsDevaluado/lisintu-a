@@ -1,0 +1,86 @@
+{% extends 'home/base_home.html' %}
+{% load static %}
+
+{% block carrusel %}
+{% endblock carrusel %}
+
+{% block about %}
+{% endblock about %}
+
+{% block servicios %}
+{% endblock servicios %}
+
+
+{% block contactenos %}
+<!-- Appointment Start -->
+<div class="container-fluid py-5 px-5">
+    <div class="row gx-5">
+
+        <div class="container mt-3">
+            <center>
+                <h1>Buscador de Mantenimientos sin Conexión</h1>
+                <span>! Atención este buscador funciona de forma sin conexión para ayudarle a encontrar los mantenimientos disponibles.
+                    !</span>
+                <br>
+            </center><br>
+            <h2>Tabla de Mantenimientos</h2>
+            <p>Escriba el dato en el campo para buscar los mantenimientos en la tabla,
+                Código, Estado, fecha :</p>
+            <!-- <button type="button" class="btn btn-info" onclick="getClientes();">Consultar Clientes!</button><br /><br /> -->
+            <input class="form-control" id="myInput" type="text" placeholder="Buscar..">
+            <br>
+            <!-- <input id="buscar" type="text" class="form-control" placeholder="Escriba algo para filtrar" /> -->
+            <table id="tabla" class="table table-bordered table-hover">
+                <thead class="thead-dark">
+                    <tr>
+                        <th>Código</th>
+                        <th>Estado</th>
+                        <th>Fecha ingreso</th>
+                        <th>Tipo de Mantenimiento</th>
+                        <th>Tipo de Equipo</th>
+                        <th>Costo</th>
+                    </tr>
+                </thead>
+                <tbody id="myTable">
+                    <!-- <tr>
+                        <td>John</td>
+                        <td>Doe</td>
+                        <td>john@example.com</td>
+                        <td>john@example.com</td>
+                    </tr> -->
+                </tbody>
+            </table>
+            <p>Nota: Se presentan los datos principales de los mantenimientos para evitar problemas de rendimiento y
+                seguridad.</p>
+        </div>
+
+        <script>
+            $(document).ready(function () {
+                $("#myInput").on("keyup", function () {
+                    var value = $(this).val().toLowerCase();
+                    $("#myTable tr").filter(function () {
+                        $(this).toggle($(this).text().toLowerCase().indexOf(value) > -1)
+                    });
+                });
+            });
+
+        </script>
+
+    </div>
+</div>
+</div>
+<!-- Appointment End -->
+{% endblock contactenos %}
+
+
+{% block portafolio %}
+{% endblock portafolio %}
+
+{% block team %}
+{% endblock team %}
+
+{% block testimonio %}
+{% endblock testimonio %}
+
+{% block blog %}
+{% endblock blog %}
